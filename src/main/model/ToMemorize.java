@@ -13,14 +13,6 @@ public class ToMemorize {
         this.chordsToMemorize = new ArrayList<>();
     }
 
-//    // REQUIRES: String rootNote is an element of Note
-//    // MODIFIES: this
-//    // EFFECTS: add a chord (with a rootNote as its root note) to the list
-//    public void addChord(String rootNote) {
-//        Chord chord = new Chord(rootNote);
-//        this.chordsToMemorize.add(chord);
-//    }
-
     // REQUIRES: String rootNote is an element of Note
     // MODIFIES: this
     // EFFECTS: add a chord (with a rootNote as its root note) to the list and then returns the list
