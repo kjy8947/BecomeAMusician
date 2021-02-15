@@ -2,14 +2,23 @@ package model;
 
 import java.util.ArrayList;
 
+/*
+ * Represents a scale
+ */
 public class Scale {
     public static final int MAX_NOTE_NUMBERS = 12;
 
     private ArrayList<String> scale;
-    private ArrayList<Scale> scalesToMemorize;
-    private ArrayList<Scale> memorizedScales;
+    private String rootNote;
 
+    // constructs a Scale object w/ the given rootNote as its root note
+    // REQUIRES: a root needs to be one of the 7 letters between A and G
+    //           an uppercase letter for a major scale; a lowercase letter for a minor scale
+    // MODIFIES: this
+    // EFFECTS:  runs the buildMajorScale method if the input letter is in uppercase
+    //           runs the buildMinorScale method if the input letter is in lowercase
     public Scale(String rootNote) {
+        this.rootNote = rootNote;
         Note note = new Note();
         if (rootNote.equals(rootNote.toUpperCase())) {
             buildMajorScale(note.getNoteForMajor(rootNote));
@@ -18,6 +27,8 @@ public class Scale {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS:  builds a major scale by adding the next 7 notes after the root note given
     public ArrayList buildMajorScale(int root) {
         Note note = new Note();
         scale = new ArrayList<>();
@@ -38,6 +49,8 @@ public class Scale {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS:  builds a minor scale by adding the next 7 notes after the root note given
     public ArrayList buildMinorScale(int root) {
         Note note = new Note();
         scale = new ArrayList<>();
@@ -58,21 +71,9 @@ public class Scale {
         }
     }
 
-    public void studyMajorScale(String rootNote) {
-        Note note = new Note();
-        int noteValue;
-        noteValue = note.getNoteForMajor(rootNote);
-        Scale scale = new Scale(rootNote);
-        System.out.println("\nBelow is the list of the notes in " + rootNote + " major scale.");
-        System.out.println((scale.buildMajorScale(noteValue)));
-    }
-
-    public void studyMinorScale(String rootNote) {
-        Note note = new Note();
-        int noteValue;
-        noteValue = note.getNoteForMinor(rootNote);
-        Scale scale = new Scale(rootNote);
-        System.out.println("\nBelow is the list of the notes in " + rootNote + " minor scale.");
-        System.out.println((scale.buildMinorScale(noteValue)));
+    // to be used in the late versions/phases
+    // EFFECTS: returns the root note of the scale
+    public String getRootNote() {
+        return rootNote;
     }
 }

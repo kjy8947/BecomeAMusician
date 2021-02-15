@@ -2,6 +2,11 @@ package model;
 
 import java.util.HashMap;
 
+/*
+ * Represents a musical note
+ * (uppercase letter notes to be used for major chords/scales;
+ * lowercase letter notes to be used for minor chords/scales)
+ */
 public class Note {
     public static final int MAX_NOTE_NUMBERS = 12;
 
@@ -10,6 +15,7 @@ public class Note {
     private HashMap<Integer, String> notesIntToStrForMinor = new HashMap<Integer, String>(MAX_NOTE_NUMBERS);
     private HashMap<String, Integer> notesStrToIntForMinor = new HashMap<String, Integer>(MAX_NOTE_NUMBERS);
 
+    // constructs hashmaps of 12 musical notes w/ a number assigned to each note
     public Note() {
         setNotesIntToStrForMajor();
         setNotesIntToStrForMinor();
@@ -17,6 +23,9 @@ public class Note {
         setNotesStrToIntForMinor();
     }
 
+    // MODIFIES: this
+    // EFFECTS: assigning 12 musical notes as the values for each key (numbers 0-11) in the hashmap
+    //          these notes are to be used for major chords/scales as the letters are in uppercase
     public void setNotesIntToStrForMajor() {
         notesIntToStrForMajor.put(1, "A");
         notesIntToStrForMajor.put(2, "A#");
@@ -32,6 +41,9 @@ public class Note {
         notesIntToStrForMajor.put(0, "G#");
     }
 
+    // MODIFIES: this
+    // EFFECTS: assigning 12 musical notes as the values for each key (numbers 0-11) in the hashmap
+    //          these notes are to be used for minor chords/scales as the letters are in lowercase
     public void setNotesIntToStrForMinor() {
         notesIntToStrForMinor.put(1, "a");
         notesIntToStrForMinor.put(2, "a#");
@@ -47,6 +59,9 @@ public class Note {
         notesIntToStrForMinor.put(0, "g#");
     }
 
+    // MODIFIES: this
+    // EFFECTS: assigning 12 numbers as the values for each key (musical notes A-G#) in the hashmap
+    //          these notes are to be used for major chords/scales as the letters are in uppercase
     public void setNotesStrToIntForMajor() {
         notesStrToIntForMajor.put("A", 1);
         notesStrToIntForMajor.put("A#", 2);
@@ -62,6 +77,9 @@ public class Note {
         notesStrToIntForMajor.put("G#", 0);
     }
 
+    // MODIFIES: this
+    // EFFECTS: assigning 12 numbers as the values for each key (musical notes A-G#) in the hashmap
+    //          these notes are to be used for minor chords/scales as the letters are in lowercase
     public void setNotesStrToIntForMinor() {
         notesStrToIntForMinor.put("a", 1);
         notesStrToIntForMinor.put("a#", 2);
@@ -77,14 +95,14 @@ public class Note {
         notesStrToIntForMinor.put("g#", 0);
     }
 
+    // REQUIRES: key must be an integer [0, 11]
+    // EFFECTS:  returns the note name that is paired w/ the key in the hashmap, notesIntToStrForMajor
     public String getNoteForMajor(int key) {
         return notesIntToStrForMajor.get(key);
     }
 
-//    public int getNoteForMajor(String key) {
-//        return notesStrToIntForMajor.get(key);
-//    }
-
+    // REQUIRES: key must be a string that belongs to the hashmap, notesStrToIntForMajor
+    // EFFECTS:  returns the number that is paired w/ the key (note name) in the hashmap, notesStrToIntForMajor
     public int getNoteForMajor(String key) {
         if (notesStrToIntForMajor.keySet().contains(key)) {
             return notesStrToIntForMajor.get(key);
@@ -93,10 +111,14 @@ public class Note {
         }
     }
 
+    // REQUIRES: key must be an integer [0, 11]
+    // EFFECTS: returns the note name that is paired w/ the key in the hashmap, notesIntToStrForMinor
     public String getNoteForMinor(int key) {
         return notesIntToStrForMinor.get(key);
     }
 
+    // REQUIRES: key must be a string that belongs to the hashmap, notesStrToIntForMinor
+    // EFFECTS: returns the number that is paired w/ the key (note name) in the hashmap, notesStrToIntForMinor
     public int getNoteForMinor(String key) {
         if (notesStrToIntForMinor.keySet().contains(key)) {
             return notesStrToIntForMinor.get(key);
@@ -104,5 +126,4 @@ public class Note {
             return 999;
         }
     }
-
 }

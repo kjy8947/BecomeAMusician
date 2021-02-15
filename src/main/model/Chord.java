@@ -2,24 +2,28 @@ package model;
 
 import java.util.ArrayList;
 
+/*
+ * Represents a triad chord
+ */
 public class Chord {
     public static final int MAX_NOTE_NUMBERS = 12;
 
-//    private int root;
-//    private String rootNote;
-
     private ArrayList<String> chord;
-    private ArrayList<Chord> chordsToMemorize;
-    private ArrayList<Chord> memorizedChords;
+    private String rootNote;
 
+    // EFFECTS:  constructs a Chord object w/o any parameter given
     public Chord() {
 
     }
 
+    // constructs a Chord object w/ the given rootNote as its root note
     // REQUIRES: a root needs to be one of the 7 letters between A and G
-    // MODIFIES:
-    // EFFECTS:
+    //           an uppercase letter for a major chord; a lowercase letter for a minor chord
+    // MODIFIES: this
+    // EFFECTS:  runs the buildMajorChord method if the input letter is in uppercase
+    //           runs the buildMinorChord method if the input letter is in lowercase
     public Chord(String rootNote) {
+        this.rootNote = rootNote;
         Note note = new Note();
         if (rootNote.equals(rootNote.toUpperCase())) {
             buildMajorTriadChord(note.getNoteForMajor(rootNote));
@@ -28,6 +32,8 @@ public class Chord {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS:  builds a major chord by adding the major 3rd and the perfect 5th notes to the root note given
     public ArrayList buildMajorTriadChord(int root) {
         Note note = new Note();
         chord = new ArrayList<>();
@@ -43,6 +49,8 @@ public class Chord {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS:  builds a minor chord by adding the minor 3rd and the perfect 5th notes to the root note given
     public ArrayList buildMinorTriadChord(int root) {
         Note note = new Note();
         chord = new ArrayList<>();
@@ -58,21 +66,8 @@ public class Chord {
         }
     }
 
-    public void studyMajorChord(String rootNote) {
-        Note note = new Note();
-        int noteValue;
-        noteValue = note.getNoteForMajor(rootNote);
-        Chord chord = new Chord(rootNote);
-        System.out.println("\nBelow is the list of the notes in " + rootNote + " major chord.");
-        System.out.println(chord.buildMajorTriadChord(noteValue));
-    }
-
-    public void studyMinorChord(String rootNote) {
-        Note note = new Note();
-        int noteValue;
-        noteValue = note.getNoteForMinor(rootNote);
-        Chord chord = new Chord(rootNote);
-        System.out.println("\nBelow is the list of the notes in " + rootNote + " minor chord.");
-        System.out.println(chord.buildMinorTriadChord(noteValue));
+    // EFFECTS: returns the root note of the chord
+    public String getRootNote() {
+        return rootNote;
     }
 }
