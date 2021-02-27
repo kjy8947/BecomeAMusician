@@ -2,25 +2,36 @@ package model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// I don't know how to make these work...
 public class ChordTest {
-    private Chord chord;
+
+    @Test
+    public void testDummyChordConstructor() {
+        Chord dummyChordForTest = new Chord();
+    }
+
+    @Test
+    public void testChordConstructor() {
+        Chord chordForTest = new Chord("C");
+        assertEquals("C", chordForTest.getRootNote());
+    }
 
     @Test
     public void testBuildMajorTriadChord() {
-        String rootNote;
-        chord.buildMajorTriadChord(0);
-        rootNote = chord.getRootNote();
-        assertTrue(rootNote.equals("G#"));
+        Note note = new Note();
+        Chord chordForTest = new Chord("random string");
+        assertEquals("E", chordForTest.buildMajorTriadChord(4).get(1));
+        assertFalse(chordForTest.buildMajorTriadChord(13).get(0).equals("H"));
     }
 
     @Test
     public void testBuildMinorTriadChord() {
-        String rootNote;
-        chord.buildMinorTriadChord(0);
-        rootNote = chord.getRootNote();
-        assertTrue(rootNote.equals("g#"));
+        Note note = new Note();
+        Chord chordForTest = new Chord("random string");
+        assertEquals("d#", chordForTest.buildMinorTriadChord(4).get(1));
+        assertFalse(chordForTest.buildMinorTriadChord(13).get(0).equals("h"));
     }
 }

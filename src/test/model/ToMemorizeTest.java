@@ -24,4 +24,20 @@ public class ToMemorizeTest {
         listToMemorize.addChord("c");
         assertEquals(3, chords.size());
     }
+
+//    public ArrayList getMaterialsToMemorize() {
+//        ArrayList listToMemorize = new ArrayList();
+//        for (Chord c : chordsToMemorize) {
+//            listToMemorize.add(c.getRootNote());
+//        }
+//        return listToMemorize;
+//    }
+
+    @Test
+    public void testGetMaterialsToMemorize() {
+        assertTrue(listToMemorize.getMaterialsToMemorize().isEmpty());
+        listToMemorize.addChord("C");
+        //assertArrayEquals(C.toArray(), listToMemorize.getMaterialsToMemorize().toArray());
+        assertEquals("C", listToMemorize.getMaterialsToMemorize().get(0));
+    }
 }

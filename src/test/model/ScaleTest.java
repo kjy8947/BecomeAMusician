@@ -2,25 +2,30 @@ package model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// I don't know how to make these work...
 public class ScaleTest {
-    private Scale scale;
 
     @Test
-    public void testBuildMajorScale() {
-        String rootNote;
-        scale.buildMajorScale(0);
-        rootNote = scale.getRootNote();
-        assertTrue(rootNote.equals("G#"));
+    public void testScaleConstructor() {
+        Scale scaleForTest = new Scale("C");
+        assertEquals("C", scaleForTest.getRootNote());
     }
 
     @Test
-    public void testBuildMinorScale() {
-        String rootNote;
-        scale.buildMinorScale(0);
-        rootNote = scale.getRootNote();
-        assertTrue(rootNote.equals("g#"));
+    public void testBuildMajorTriadChord() {
+        Note note = new Note();
+        Scale scaleForTest = new Scale("random string");
+        assertEquals("D", scaleForTest.buildMajorScale(4).get(1));
+        assertFalse(scaleForTest.buildMajorScale(13).get(0).equals("H"));
+    }
+
+    @Test
+    public void testBuildMinorTriadChord() {
+        Note note = new Note();
+        Scale scaleForTest = new Scale("random string");
+        assertEquals("c", scaleForTest.buildMinorScale(4).get(0));
+        assertFalse(scaleForTest.buildMinorScale(13).get(0).equals("h"));
     }
 }

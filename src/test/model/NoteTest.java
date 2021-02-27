@@ -28,6 +28,7 @@ public class NoteTest {
         assertEquals(note.getNoteForMajor("A"), 1);
         assertNotEquals(note.getNoteForMajor("A"), 0);
         assertEquals(note.getNoteForMajor("G"), 11);
+        assertEquals(note.getNoteForMajor("H"), 999);
     }
 
     @Test
