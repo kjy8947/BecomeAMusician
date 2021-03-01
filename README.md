@@ -14,3 +14,7 @@ each chord (scale to be added in the later version) they have memorized.
 - As a user, I want to be able to add chords to my list of chords to memorize.
 - As a user, I want to be able to view the chords I've added to the list of chords to memorize.
 - As a user, I want to be able to view the points the character I'm playing has accumulated.
+- As a user, when I select the quit option from the application menu, I want to be reminded to save my character's name
+and its (my) list of chords to memorize.
+- As a user, when I start the application, I want to be given the option to load my previously-played character's list
+of chords to memorize.
