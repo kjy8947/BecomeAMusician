@@ -71,7 +71,6 @@ public class Scale {
         }
     }
 
-    // to be used in the late versions/phases
     // EFFECTS: returns the root note of the scale
     public String getRootNote() {
         return rootNote;

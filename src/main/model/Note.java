@@ -26,7 +26,7 @@ public class Note {
     // MODIFIES: this
     // EFFECTS: assigning 12 musical notes as the values for each key (numbers 0-11) in the hashmap
     //          these notes are to be used for major chords/scales as the letters are in uppercase
-    public void setNotesIntToStrForMajor() {
+    private void setNotesIntToStrForMajor() {
         notesIntToStrForMajor.put(1, "A");
         notesIntToStrForMajor.put(2, "A#");
         notesIntToStrForMajor.put(3, "B");
@@ -44,7 +44,7 @@ public class Note {
     // MODIFIES: this
     // EFFECTS: assigning 12 musical notes as the values for each key (numbers 0-11) in the hashmap
     //          these notes are to be used for minor chords/scales as the letters are in lowercase
-    public void setNotesIntToStrForMinor() {
+    private void setNotesIntToStrForMinor() {
         notesIntToStrForMinor.put(1, "a");
         notesIntToStrForMinor.put(2, "a#");
         notesIntToStrForMinor.put(3, "b");
@@ -62,7 +62,7 @@ public class Note {
     // MODIFIES: this
     // EFFECTS: assigning 12 numbers as the values for each key (musical notes A-G#) in the hashmap
     //          these notes are to be used for major chords/scales as the letters are in uppercase
-    public void setNotesStrToIntForMajor() {
+    private void setNotesStrToIntForMajor() {
         notesStrToIntForMajor.put("A", 1);
         notesStrToIntForMajor.put("A#", 2);
         notesStrToIntForMajor.put("B", 3);
@@ -80,7 +80,7 @@ public class Note {
     // MODIFIES: this
     // EFFECTS: assigning 12 numbers as the values for each key (musical notes A-G#) in the hashmap
     //          these notes are to be used for minor chords/scales as the letters are in lowercase
-    public void setNotesStrToIntForMinor() {
+    private void setNotesStrToIntForMinor() {
         notesStrToIntForMinor.put("a", 1);
         notesStrToIntForMinor.put("a#", 2);
         notesStrToIntForMinor.put("b", 3);

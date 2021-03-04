@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONArray;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -33,5 +34,44 @@ public class ChordTest {
         Chord chordForTest = new Chord("random string");
         assertEquals("d#", chordForTest.buildMinorTriadChord(4).get(1));
         assertFalse(chordForTest.buildMinorTriadChord(13).get(0).equals("h"));
+    }
+
+//    @Override
+//    public JSONObject toJson() {
+//        JSONObject json = new JSONObject();
+//        json.put("root note", rootNote);
+//        return json;
+//    }
+
+//    @Test
+//    public void testToJson() {
+//        JSONObject firstJson = new JSONObject();
+//        firstJson.put("root note", "C");
+//        assertTrue(firstJson.get("root note").equals("C"));
+//
+//        JSONObject secondJson = new JSONObject();
+//        secondJson.put("root note", "C");
+//
+//        assertEquals(firstJson.toString(), secondJson.toString());
+//
+//        firstJson.put("root note", "f#");
+//        assertFalse(firstJson.toString() == secondJson.toString());
+//    }
+
+    @Test
+    public void testToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        Chord chord1 = new Chord("C");
+        Chord chord2 = new Chord("D");
+        Chord chord3 = new Chord("E");
+
+        jsonArray.put(chord1.toJson());
+        jsonArray.put(chord2.toJson());
+        jsonArray.put(chord3.toJson());
+
+        assertEquals("{\"root note\":\"C\"}", jsonArray.get(0).toString());
+        assertEquals("{\"root note\":\"D\"}", jsonArray.get(1).toString());
+        assertEquals("{\"root note\":\"E\"}", jsonArray.get(2).toString());
     }
 }

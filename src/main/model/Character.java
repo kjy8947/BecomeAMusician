@@ -1,7 +1,7 @@
 package model;
 
 /*
- * Represents a character
+ * Represents a character with its points
  */
 public class Character {
     private int points;

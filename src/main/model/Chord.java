@@ -1,11 +1,14 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 /*
  * Represents a triad chord
  */
-public class Chord {
+public class Chord implements Writable {
     public static final int MAX_NOTE_NUMBERS = 12;
 
     private ArrayList<String> chord;
@@ -69,5 +72,13 @@ public class Chord {
     // EFFECTS: returns the root note of the chord
     public String getRootNote() {
         return rootNote;
+    }
+
+    @Override
+    // Citation: this method has been copied (and then modified) from JsonSerializationDemo
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("root note", rootNote);
+        return json;
     }
 }
