@@ -44,37 +44,10 @@ class JsonReaderTest {
             //List<Chord> chords = tm.getMaterialsToMemorize();
             assertEquals(2, tm.getMaterialsToMemorize().size());
             List<Chord> chords = tm.getMaterialsToMemorize();
-//            checkChord("C", chords.get(0));
-//            checkChord("c", chords.get(1));
             assertEquals("C", chords.get(0));
             assertEquals("c", chords.get(1));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
     }
-
-//    // MODIFIES: tm
-//    // EFFECTS: parses chords from JSON object and adds them to workroom
-//    private void addChords(ToMemorize tm, JSONObject jsonObject) {
-//        JSONArray jsonArray = jsonObject.getJSONArray("chords to memorize");
-//        for (Object json : jsonArray) {
-//            JSONObject nextChord = (JSONObject) json;
-//            addChord(tm, nextChord);
-//        }
-//    }
-
-//    public void testAddChords() {
-//        JSONObject jsonObject;
-//        JSONArray jsonArray = jsonObject.getJSONArray("chords to memorize");
-//    }
-//
-//    // MODIFIES: tm
-//    // EFFECTS: parses chord from JSON object and adds it to workroom
-//    private void addChord(ToMemorize tm, JSONObject jsonObject) {
-//        String rootNote = jsonObject.getString("root note");
-//        Chord chord = new Chord();
-//        Note note = new Note();
-//
-//        tm.addChord(rootNote);
-//    }
 }

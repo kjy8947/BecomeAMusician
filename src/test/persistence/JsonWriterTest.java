@@ -55,8 +55,6 @@ class JsonWriterTest {
             tm = reader.read();
             List<Chord> chords = tm.getMaterialsToMemorize();
             assertEquals(2, chords.size());
-//            checkChord("C", chords.get(0));
-//            checkChord("c", chords.get(1));
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");

@@ -78,18 +78,3 @@ public class ToMemorizeTest {
         assertEquals("{\"root note\":\"E\"}", jsonArray.get(2).toString());
     }
 }
-
-//        ToMemorize chordsToMemorize = new ToMemorize();
-//        chordsToMemorize.addChord("C");
-//        chordsToMemorize.addChord("D");
-//        chordsToMemorize.addChord("E");
-//
-//        assertEquals("C", chordsToMemorize.getMaterialsToMemorize().get(0));
-//        assertEquals("D", chordsToMemorize.getMaterialsToMemorize().get(1));
-//        assertEquals("E", chordsToMemorize.getMaterialsToMemorize().get(2));
-//
-//        jsonArray.put("root note", "C");
-
-//        for (Chord c : chordsToMemorize.getMaterialsToMemorize()) {
-//            jsonArray.put(c.toJson());
-//        }
