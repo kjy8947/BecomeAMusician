@@ -2,7 +2,10 @@ package model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ScaleTest {
 
@@ -37,7 +40,17 @@ public class ScaleTest {
     @Test
     public void testBuildMajorScaleValid() {
         Scale scaleForTest = new Scale("random string");
+
         assertEquals("D", scaleForTest.buildMajorScale(4).get(1));
+
+        ArrayList cMajorScaleNotes = scaleForTest.buildMajorScale(4);
+
+        assertTrue(cMajorScaleNotes.get(0).equals("C"));
+        assertTrue(cMajorScaleNotes.get(2).equals("E"));
+        assertTrue(cMajorScaleNotes.get(4).equals("G"));
+        assertTrue(cMajorScaleNotes.contains("C"));
+        assertFalse(cMajorScaleNotes.contains("c"));
+        assertFalse(cMajorScaleNotes.contains("D#"));
     }
 
     @Test
@@ -51,7 +64,17 @@ public class ScaleTest {
     @Test
     public void testBuildMinorScaleValid() {
         Scale scaleForTest = new Scale("random string");
+
         assertEquals("c", scaleForTest.buildMinorScale(4).get(0));
+
+        ArrayList cMinorScaleNotes = scaleForTest.buildMinorScale(4);
+
+        assertTrue(cMinorScaleNotes.get(0).equals("c"));
+        assertTrue(cMinorScaleNotes.get(2).equals("d#"));
+        assertTrue(cMinorScaleNotes.get(4).equals("g"));
+        assertTrue(cMinorScaleNotes.contains("c"));
+        assertFalse(cMinorScaleNotes.contains("C"));
+        assertFalse(cMinorScaleNotes.contains("e"));
     }
 
     @Test
