@@ -8,14 +8,20 @@ public class ScaleTest {
 
     @Test
     public void testScaleConstructorMajorScale() {
+        Note note = new Note();
         Scale scaleForTest = new Scale("C");
         assertEquals("C", scaleForTest.getRootNote());
+        assertEquals("[C, D, E, F, G, A, B, C]",
+                scaleForTest.buildMajorScale(note.getNoteForMajor("C")).toString());
     }
 
     @Test
     public void testScaleConstructorMinorScale() {
+        Note note = new Note();
         Scale scaleForTest = new Scale("c");
         assertEquals("c", scaleForTest.getRootNote());
+        assertEquals("[c, d, d#, f, g, g#, b, c]",
+                scaleForTest.buildMinorScale(note.getNoteForMinor("c")). toString());
     }
 
     @Test

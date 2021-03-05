@@ -14,20 +14,27 @@ public class ChordTest {
 
     @Test
     public void testChordConstructorMajorChord() {
+        Note note = new Note();
         Chord chordForTest = new Chord("C");
         assertEquals("C", chordForTest.getRootNote());
+        assertEquals("[C, E, G]", chordForTest.buildMajorTriadChord(note.getNoteForMajor("C")).toString());
     }
 
     @Test
     public void testChordConstructorMinorChord() {
+        Note note = new Note();
         Chord chordForTest = new Chord("c");
         assertEquals("c", chordForTest.getRootNote());
+        assertEquals("[c, d#, g]",
+                chordForTest.buildMinorTriadChord(note.getNoteForMinor("c")).toString());
     }
 
     @Test
     public void testBuildMajorTriadChordValid() {
         Chord chordForTest = new Chord();
+        assertEquals("C", chordForTest.buildMajorTriadChord(4).get(0));
         assertEquals("E", chordForTest.buildMajorTriadChord(4).get(1));
+        assertEquals("G", chordForTest.buildMajorTriadChord(4).get(2));
     }
 
     @Test
@@ -41,7 +48,9 @@ public class ChordTest {
     @Test
     public void testBuildMinorTriadChordValid() {
         Chord chordForTest = new Chord();
+        assertEquals("c", chordForTest.buildMinorTriadChord(4).get(0));
         assertEquals("d#", chordForTest.buildMinorTriadChord(4).get(1));
+        assertEquals("g", chordForTest.buildMinorTriadChord(4).get(2));
     }
 
     @Test
