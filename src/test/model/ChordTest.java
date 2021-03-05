@@ -3,7 +3,6 @@ package model;
 import org.json.JSONArray;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ChordTest {
@@ -34,7 +33,7 @@ public class ChordTest {
     @Test
     public void testBuildMajorTriadChordNotValid() {
         Chord chordForTest = new Chord();
-        assertEquals(chordForTest.buildMajorTriadChord(Scale.MAX_NOTE_NUMBERS + 1).toString(),
+        assertEquals(chordForTest.buildMajorTriadChord(Scale.MAX_NOTE_NUMBERS).toString(),
                 "[Invalid input. Please enter a letter between 'A' and 'G#' "
                         + "(an uppercase letter for a major chord; a lowercase letter for a minor chord).]");
     }
@@ -48,7 +47,7 @@ public class ChordTest {
     @Test
     public void testBuildMinorTriadChordNotValid() {
         Chord chordForTest = new Chord();
-        assertEquals(chordForTest.buildMinorTriadChord(Scale.MAX_NOTE_NUMBERS + 1).toString(),
+        assertEquals(chordForTest.buildMinorTriadChord(Scale.MAX_NOTE_NUMBERS).toString(),
                 "[Invalid input. Please enter a letter between 'a' and 'g#' "
                         + "(an uppercase letter for a major chord; a lowercase letter for a minor chord).]");
     }

@@ -364,7 +364,7 @@ public class BecomeAMusician {
     }
 
     // CITATION: this method has been copied (and then modified) from JsonSerializationDemo
-    // EFFECTS: saves the current state to file
+    // EFFECTS: saves the current list of chords to memorize to file
     public void saveTheState() {
         try {
             jsonWriter.open();
@@ -378,7 +378,7 @@ public class BecomeAMusician {
 
     // CITATION: this method has been copied (and then modified) from JsonSerializationDemo
     // MODIFIES: this
-    // EFFECTS: loads a state from file
+    // EFFECTS: loads the list of chords to memorize from file
     public void loadTheState() {
         try {
             chordsToMemorize = jsonReader.read();

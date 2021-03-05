@@ -27,7 +27,7 @@ public class ScaleTest {
     @Test
     public void testBuildMajorScaleNotValid() {
         Scale scaleForTest = new Scale("random string");
-        assertEquals(scaleForTest.buildMajorScale(Scale.MAX_NOTE_NUMBERS + 1).toString(),
+        assertEquals(scaleForTest.buildMajorScale(Scale.MAX_NOTE_NUMBERS).toString(),
                 "[Invalid input. Please enter a letter between 'A' and 'G#' "
                 + "(an uppercase letter for a major scale; a lowercase letter for a minor scale).]");
     }
@@ -41,7 +41,7 @@ public class ScaleTest {
     @Test
     public void testBuildMinorScaleNotValid() {
         Scale scaleForTest = new Scale("random string");
-        assertEquals(scaleForTest.buildMinorScale(Scale.MAX_NOTE_NUMBERS + 1).toString(),
+        assertEquals(scaleForTest.buildMinorScale(Scale.MAX_NOTE_NUMBERS).toString(),
                 "[Invalid input. Please enter a letter between 'a' and 'g#' "
                         + "(an uppercase letter for a major scale; a lowercase letter for a minor scale).]");
     }
