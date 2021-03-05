@@ -46,7 +46,7 @@ public class ToMemorize implements Writable {
 
     // CITATION: this method has been copied (and then modified) from JsonSerializationDemo
     // EFFECTS: returns chords in this list to memorize as a JSON array
-    private JSONArray chordsToJson() {
+    public JSONArray chordsToJson() {
         JSONArray jsonArray = new JSONArray();
 
         for (Chord c : chordsToMemorize) {

@@ -41,6 +41,19 @@ public class ToMemorizeTest {
         tm.addChord("D");
         tm.addChord("E");
 
-        assertEquals(tm.toJson().toString(), "{\"chords to memorize\":[{\"root note\":\"C\"},{\"root note\":\"D\"},{\"root note\":\"E\"}]}");
+        assertEquals(tm.toJson().toString(),
+                "{\"chords to memorize\":[{\"root note\":\"C\"},{\"root note\":\"D\"},{\"root note\":\"E\"}]}");
+    }
+
+    @Test
+    public void testChordsToJson() {
+        ToMemorize tm = new ToMemorize();
+
+        tm.addChord("C");
+        tm.addChord("D");
+        tm.addChord("E");
+
+        assertEquals(tm.chordsToJson().toString(),
+                "[{\"root note\":\"C\"},{\"root note\":\"D\"},{\"root note\":\"E\"}]");
     }
 }
