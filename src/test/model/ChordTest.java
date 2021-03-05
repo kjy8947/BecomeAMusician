@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ChordTest {
-
     @Test
     public void testDummyChordConstructor() {
         Chord dummyChordForTest = new Chord();

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ScaleTest {
-
     @Test
     public void testScaleConstructor() {
         Scale scaleForTest = new Scale("C");
