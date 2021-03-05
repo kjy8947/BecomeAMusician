@@ -18,6 +18,11 @@ public class ChordTest {
         Chord chordForTest = new Chord("C");
         assertEquals("C", chordForTest.getRootNote());
         assertEquals("[C, E, G]", chordForTest.buildMajorTriadChord(note.getNoteForMajor("C")).toString());
+
+        Chord chordForAnotherTest = new Chord("H");
+        assertEquals(chordForAnotherTest.buildMajorTriadChord(note.getNoteForMajor("H")).toString(),
+                "[Invalid input. Please enter a letter between 'A' and 'G#' "
+                        + "(an uppercase letter for a major chord; a lowercase letter for a minor chord).]");
     }
 
     @Test
@@ -27,6 +32,11 @@ public class ChordTest {
         assertEquals("c", chordForTest.getRootNote());
         assertEquals("[c, d#, g]",
                 chordForTest.buildMinorTriadChord(note.getNoteForMinor("c")).toString());
+
+        Chord chordForAnotherTest = new Chord("h");
+        assertEquals(chordForAnotherTest.buildMinorTriadChord(note.getNoteForMinor("h")).toString(),
+                "[Invalid input. Please enter a letter between 'a' and 'g#' "
+                        + "(an uppercase letter for a major chord; a lowercase letter for a minor chord).]");
     }
 
     @Test

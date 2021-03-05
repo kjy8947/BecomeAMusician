@@ -13,6 +13,11 @@ public class ScaleTest {
         assertEquals("C", scaleForTest.getRootNote());
         assertEquals("[C, D, E, F, G, A, B, C]",
                 scaleForTest.buildMajorScale(note.getNoteForMajor("C")).toString());
+
+        Scale scaleForAnotherTest = new Scale("H");
+        assertEquals(scaleForAnotherTest.buildMajorScale(note.getNoteForMajor("H")).toString(),
+                "[Invalid input. Please enter a letter between 'A' and 'G#' "
+                + "(an uppercase letter for a major scale; a lowercase letter for a minor scale).]");
     }
 
     @Test
@@ -22,6 +27,11 @@ public class ScaleTest {
         assertEquals("c", scaleForTest.getRootNote());
         assertEquals("[c, d, d#, f, g, g#, b, c]",
                 scaleForTest.buildMinorScale(note.getNoteForMinor("c")). toString());
+
+        Scale scaleForAnotherTest = new Scale("h");
+        assertEquals(scaleForAnotherTest.buildMinorScale(note.getNoteForMinor("h")).toString(),
+                "[Invalid input. Please enter a letter between 'a' and 'g#' "
+                        + "(an uppercase letter for a major scale; a lowercase letter for a minor scale).]");
     }
 
     @Test
