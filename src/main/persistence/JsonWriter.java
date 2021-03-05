@@ -29,7 +29,6 @@ public class JsonWriter {
     public void write(ToMemorize tm) {
         JSONObject json = tm.toJson();
         saveToFile(json.toString(TAB));
-        //saveToFile(characterName);
     }
 
     // MODIFIES: this

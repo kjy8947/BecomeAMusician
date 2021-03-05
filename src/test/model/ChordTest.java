@@ -51,20 +51,23 @@ public class ChordTest {
         assertEquals("E", chordForTest.buildMajorTriadChord(4).get(1));
         assertEquals("G", chordForTest.buildMajorTriadChord(4).get(2));
 
-        ArrayList cMajorChordNotes = chordForTest.buildMajorTriadChord(4);
-
-        assertTrue(cMajorChordNotes.get(0).equals("C"));
-        assertTrue(cMajorChordNotes.get(1).equals("E"));
-        assertTrue(cMajorChordNotes.get(2).equals("G"));
-        assertTrue(cMajorChordNotes.contains("C"));
-        assertFalse(cMajorChordNotes.contains("c"));
-        assertFalse(cMajorChordNotes.contains("F"));
+//        ArrayList cMajorChordNotes = chordForTest.buildMajorTriadChord(4);
+//
+//        assertTrue(cMajorChordNotes.get(0).equals("C"));
+//        assertTrue(cMajorChordNotes.get(1).equals("E"));
+//        assertTrue(cMajorChordNotes.get(2).equals("G"));
+//        assertTrue(cMajorChordNotes.contains("C"));
+//        assertFalse(cMajorChordNotes.contains("c"));
+//        assertFalse(cMajorChordNotes.contains("F"));
     }
 
     @Test
     public void testBuildMajorTriadChordNotValid() {
         Chord chordForTest = new Chord();
         assertEquals(chordForTest.buildMajorTriadChord(Scale.MAX_NOTE_NUMBERS).toString(),
+                "[Invalid input. Please enter a letter between 'A' and 'G#' "
+                        + "(an uppercase letter for a major chord; a lowercase letter for a minor chord).]");
+        assertEquals(chordForTest.buildMajorTriadChord(-1).toString(),
                 "[Invalid input. Please enter a letter between 'A' and 'G#' "
                         + "(an uppercase letter for a major chord; a lowercase letter for a minor chord).]");
     }
@@ -77,20 +80,23 @@ public class ChordTest {
         assertEquals("d#", chordForTest.buildMinorTriadChord(4).get(1));
         assertEquals("g", chordForTest.buildMinorTriadChord(4).get(2));
 
-        ArrayList cMinorChordNotes = chordForTest.buildMinorTriadChord(4);
-
-        assertTrue(cMinorChordNotes.get(0).equals("c"));
-        assertTrue(cMinorChordNotes.get(1).equals("d#"));
-        assertTrue(cMinorChordNotes.get(2).equals("g"));
-        assertTrue(cMinorChordNotes.contains("c"));
-        assertFalse(cMinorChordNotes.contains("C"));
-        assertFalse(cMinorChordNotes.contains("f"));
+//        ArrayList cMinorChordNotes = chordForTest.buildMinorTriadChord(4);
+//
+//        assertTrue(cMinorChordNotes.get(0).equals("c"));
+//        assertTrue(cMinorChordNotes.get(1).equals("d#"));
+//        assertTrue(cMinorChordNotes.get(2).equals("g"));
+//        assertTrue(cMinorChordNotes.contains("c"));
+//        assertFalse(cMinorChordNotes.contains("C"));
+//        assertFalse(cMinorChordNotes.contains("f"));
     }
 
     @Test
     public void testBuildMinorTriadChordNotValid() {
         Chord chordForTest = new Chord();
         assertEquals(chordForTest.buildMinorTriadChord(Scale.MAX_NOTE_NUMBERS).toString(),
+                "[Invalid input. Please enter a letter between 'a' and 'g#' "
+                        + "(an uppercase letter for a major chord; a lowercase letter for a minor chord).]");
+        assertEquals(chordForTest.buildMinorTriadChord(-1).toString(),
                 "[Invalid input. Please enter a letter between 'a' and 'g#' "
                         + "(an uppercase letter for a major chord; a lowercase letter for a minor chord).]");
     }
