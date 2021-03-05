@@ -2,10 +2,7 @@ package model;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ScaleTest {
 
@@ -38,19 +35,22 @@ public class ScaleTest {
     }
 
     @Test
+    public void testScaleConstructorNotMakingSense() {
+        Note note = new Note();
+        Scale stupidScale = new Scale("cC");
+        assertEquals(stupidScale.buildMajorScale(note.getNoteForMajor("cC")).toString(),
+                "[Invalid input. Please enter a letter between 'A' and 'G#' "
+                        + "(an uppercase letter for a major scale; a lowercase letter for a minor scale).]");
+        assertEquals(stupidScale.buildMinorScale(note.getNoteForMinor("cC")).toString(),
+                "[Invalid input. Please enter a letter between 'a' and 'g#' "
+                        + "(an uppercase letter for a major scale; a lowercase letter for a minor scale).]");
+    }
+
+    @Test
     public void testBuildMajorScaleValid() {
         Scale scaleForTest = new Scale("random string");
 
         assertEquals("D", scaleForTest.buildMajorScale(4).get(1));
-
-//        ArrayList cMajorScaleNotes = scaleForTest.buildMajorScale(4);
-//
-//        assertTrue(cMajorScaleNotes.get(0).equals("C"));
-//        assertTrue(cMajorScaleNotes.get(2).equals("E"));
-//        assertTrue(cMajorScaleNotes.get(4).equals("G"));
-//        assertTrue(cMajorScaleNotes.contains("C"));
-//        assertFalse(cMajorScaleNotes.contains("c"));
-//        assertFalse(cMajorScaleNotes.contains("D#"));
     }
 
     @Test
@@ -69,15 +69,6 @@ public class ScaleTest {
         Scale scaleForTest = new Scale("random string");
 
         assertEquals("c", scaleForTest.buildMinorScale(4).get(0));
-
-//        ArrayList cMinorScaleNotes = scaleForTest.buildMinorScale(4);
-//
-//        assertTrue(cMinorScaleNotes.get(0).equals("c"));
-//        assertTrue(cMinorScaleNotes.get(2).equals("d#"));
-//        assertTrue(cMinorScaleNotes.get(4).equals("g"));
-//        assertTrue(cMinorScaleNotes.contains("c"));
-//        assertFalse(cMinorScaleNotes.contains("C"));
-//        assertFalse(cMinorScaleNotes.contains("e"));
     }
 
     @Test
