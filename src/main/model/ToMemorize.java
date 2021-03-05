@@ -37,14 +37,14 @@ public class ToMemorize implements Writable {
     }
 
     @Override
-    // Citation: this method has been copied (and then modified) from JsonSerializationDemo
+    // CITATION: this method has been copied (and then modified) from JsonSerializationDemo
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("chords to memorize", chordsToJson());
         return json;
     }
 
-    // Citation: this method has been copied (and then modified) from JsonSerializationDemo
+    // CITATION: this method has been copied (and then modified) from JsonSerializationDemo
     // EFFECTS: returns chords in this list to memorize as a JSON array
     private JSONArray chordsToJson() {
         JSONArray jsonArray = new JSONArray();

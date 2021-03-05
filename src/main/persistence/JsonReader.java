@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import org.json.*;
 
-// Citation: all the methods in this class have been copied (and then modified) from JsonSerializationDemo
+// CITATION: all the methods in this class have been copied (and then modified) from JsonSerializationDemo
 // Represents a reader that reads a list of chords (to memorize) from JSON data stored in file
 public class JsonReader {
     private String source;
@@ -39,6 +39,7 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
+    // CITATION: TA (Kenny) has helped with this method
     // EFFECTS: parses the previous game state (i.e. list of the chords to memorize) from JSON object and returns it
     private ToMemorize parseState(JSONObject jsonObject) {
         ToMemorize tm = new ToMemorize();

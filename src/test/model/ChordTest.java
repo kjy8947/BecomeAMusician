@@ -3,7 +3,6 @@ package model;
 import org.json.JSONArray;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -35,28 +34,6 @@ public class ChordTest {
         assertEquals("d#", chordForTest.buildMinorTriadChord(4).get(1));
         assertFalse(chordForTest.buildMinorTriadChord(13).get(0).equals("h"));
     }
-
-//    @Override
-//    public JSONObject toJson() {
-//        JSONObject json = new JSONObject();
-//        json.put("root note", rootNote);
-//        return json;
-//    }
-
-//    @Test
-//    public void testToJson() {
-//        JSONObject firstJson = new JSONObject();
-//        firstJson.put("root note", "C");
-//        assertTrue(firstJson.get("root note").equals("C"));
-//
-//        JSONObject secondJson = new JSONObject();
-//        secondJson.put("root note", "C");
-//
-//        assertEquals(firstJson.toString(), secondJson.toString());
-//
-//        firstJson.put("root note", "f#");
-//        assertFalse(firstJson.toString() == secondJson.toString());
-//    }
 
     @Test
     public void testToJson() {

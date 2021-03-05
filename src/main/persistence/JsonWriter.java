@@ -5,7 +5,7 @@ import model.ToMemorize;
 import org.json.JSONObject;
 import java.io.*;
 
-// Citation: all the methods in this class have been copied (and then modified) from JsonSerializationDemo
+// CITATION: all the methods in this class have been copied (and then modified) from JsonSerializationDemo
 // Represents a writer that writes JSON representation of game state to file
 public class JsonWriter {
     private static final int TAB = 4;

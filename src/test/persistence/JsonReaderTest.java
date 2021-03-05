@@ -1,10 +1,7 @@
 package persistence;
 
 import model.Chord;
-import model.Note;
 import model.ToMemorize;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -12,6 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// CITATION: all the methods in this test class have been copied (and then modified) from JsonSerializationDemo
 class JsonReaderTest {
 
     @Test
@@ -41,7 +39,6 @@ class JsonReaderTest {
         JsonReader reader = new JsonReader("./data/testWriterGeneralChordList.json");
         try {
             ToMemorize tm = reader.read();
-            //List<Chord> chords = tm.getMaterialsToMemorize();
             assertEquals(2, tm.getMaterialsToMemorize().size());
             List<Chord> chords = tm.getMaterialsToMemorize();
             assertEquals("C", chords.get(0));

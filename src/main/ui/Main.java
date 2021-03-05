@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 
 /*
  * Start the program
- * the structure of this Main class has been copied from JsonSerializationDemo
+ * CITATION: the structure of this Main class has been copied from JsonSerializationDemo
  */
 public class Main {
     public static void main(String[] args) {

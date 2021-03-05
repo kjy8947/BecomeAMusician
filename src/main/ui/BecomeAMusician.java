@@ -66,12 +66,13 @@ public class BecomeAMusician {
         System.out.println("Thank you for choosing our program to study music.");
         System.out.println("Please note that our developer is not the smartest person.");
         System.out.println("That is why this program does not understand a flat or double accidentals.");
-        System.out.println("Kindly use an enharmonic equivalence of any flat notes. (eg. D sharp instead of E flat)");
+        System.out.println("Therefore, kindly use an enharmonic equivalence of any flat notes. "
+                + "(eg. D sharp instead of E flat)");
         System.out.println("Also, please note that uppercase letter inputs are required for major chords/scales, "
                 + "and lowercase letter inputs are required for minor chords/scales.");
     }
 
-    // Citation: the method has been copied and then modified from B4 Lecture Lab
+    // CITATION: the method has been copied and then modified from B4 Lecture Lab
     // EFFECTS: allows the user to create a character with a valid name
     public void createCharacter() {
         while (true) {
@@ -110,7 +111,7 @@ public class BecomeAMusician {
         return true;
     }
 
-    // Citation: got help for method design from JsonSerializationDemo project
+    // CITATION: got help for method design from JsonSerializationDemo project
     //           runWork() method in WorkRoomApp in ui
     // MODIFIES: this
     // EFFECTS: either quits the program (option 7) or keeps playing (when 1-6 is chosen)
@@ -132,7 +133,7 @@ public class BecomeAMusician {
                     saveTheState();
                     System.exit(0);
                 } else {
-                    keepGoing = false; //originally the only line inside the 'if' bracket
+                    keepGoing = false;
                     System.exit(0);
                 }
             } else {
@@ -362,7 +363,7 @@ public class BecomeAMusician {
         }
     }
 
-    // Citation: this method has been copied (and then modified) from JsonSerializationDemo
+    // CITATION: this method has been copied (and then modified) from JsonSerializationDemo
     // EFFECTS: saves the current state to file
     public void saveTheState() {
         try {
@@ -375,7 +376,7 @@ public class BecomeAMusician {
         }
     }
 
-    // Citation: this method has been copied (and then modified) from JsonSerializationDemo
+    // CITATION: this method has been copied (and then modified) from JsonSerializationDemo
     // MODIFIES: this
     // EFFECTS: loads a state from file
     public void loadTheState() {

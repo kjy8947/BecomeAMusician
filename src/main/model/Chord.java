@@ -75,7 +75,7 @@ public class Chord implements Writable {
     }
 
     @Override
-    // Citation: this method has been copied (and then modified) from JsonSerializationDemo
+    // CITATION: this method has been copied (and then modified) from JsonSerializationDemo
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("root note", rootNote);
