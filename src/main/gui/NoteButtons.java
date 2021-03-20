@@ -3,7 +3,7 @@ package gui;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class Buttons {
+public class NoteButtons {
     private ArrayList<JButton> buttonList = new ArrayList<>();
 
     JButton buttonC = new JButton("C");
@@ -19,7 +19,7 @@ public class Buttons {
     JButton buttonAsharp = new JButton("A#");
     JButton buttonB = new JButton("B");
 
-    public Buttons() {
+    public NoteButtons() {
         buttonList.add(buttonC);
         buttonList.add(buttonCsharp);
         buttonList.add(buttonD);
