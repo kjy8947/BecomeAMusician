@@ -1,33 +1,47 @@
 package gui;
 
+import model.Character;
+import model.Chord;
 import model.Note;
 import model.ToMemorize;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import sound.NoteSound;
 
+import javax.imageio.ImageIO;
 import javax.sound.midi.MidiUnavailableException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Random;
+import java.util.Scanner;
 
-// TODO: create a "back" or "main menu" button
+import static ui.BecomeAMusician.MAX_NOTE_NUMBERS;
+
 public class BecomeAMusicianGUI extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/myGameState.json";
-    public static final int WIDTH = 640;
-    public static final int HEIGHT = 480;
-    public static final int RIGID_AREA_WIDTH = 10;
+    public static final int WIDTH = 768;
+    public static final int HEIGHT = 432;
+//    public static final int RIGID_AREA_WIDTH = 10;
     public static final int RIGID_AREA_HEIGHT = 20;
 
+    // TODO: organize the fields
+    private model.Character character;
     private Note note = new Note();
     private NoteButtons buttons = new NoteButtons();
     private NoteSound noteSound = new NoteSound();
     private JsonWriter jsonWriter = new JsonWriter(JSON_STORE);
     private JsonReader jsonReader = new JsonReader(JSON_STORE);
     private ToMemorize chordsToMemorize = new ToMemorize();
-    private String characterName;
+    private BufferedImage keyboardImage = ImageIO.read(new File("./data/keyboard.jpg"));
+    private Scanner scanner;
 
     private JButton studyButton = new JButton("Study chords/scales");
     private JButton quizButton = new JButton("Take a quiz");
@@ -36,12 +50,47 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
     private JButton saveButton = new JButton("Save the state to file");
     private JButton quitButton = new JButton("Quit");
     private JButton mainMenuButton = new JButton("Go back to the main menu");
+    private JButton enterButtonForMajorChordQuiz = new JButton("Enter");
+    private JButton enterButtonForMinorChordQuiz = new JButton("Enter");
+    private int randomNumber;
+    private String randomNote;
+    private Chord chord = new Chord();
+    private String anotherRandomNote;
+    private Random rd = new Random();
 
-    public BecomeAMusicianGUI() {
+    public BecomeAMusicianGUI() throws IOException {
         super("Become a Musician");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
 
+        startScreen();
+
+//        JPanel initialJPanel = new JPanel();
+//        initialJPanel.setLayout(new BoxLayout(initialJPanel, BoxLayout.Y_AXIS));
+//
+//        JButton newGameButton = new JButton("New Game");
+//        newGameButton.setActionCommand("newGameButton");
+//        newGameButton.addActionListener(this);
+//        initialJPanel.add(Box.createVerticalGlue());
+//        initialJPanel.add(newGameButton);
+//        initialJPanel.add(Box.createRigidArea(new Dimension(0, RIGID_AREA_HEIGHT)));
+//        JButton loadGameButton = new JButton("Load Game");
+//        loadGameButton.setActionCommand("loadButton");
+//        loadGameButton.addActionListener(this);
+//        initialJPanel.add(loadGameButton);
+//        initialJPanel.add(Box.createVerticalGlue());
+//
+//        newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        loadGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+//
+//        add(initialJPanel);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+        setResizable(false);
+    }
+
+    public void startScreen() {
         JPanel initialJPanel = new JPanel();
         initialJPanel.setLayout(new BoxLayout(initialJPanel, BoxLayout.Y_AXIS));
 
@@ -61,10 +110,6 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
         loadGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         add(initialJPanel);
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
-        setResizable(false);
     }
 
     // doesn't do anything. might as well remove it.
@@ -90,7 +135,7 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 
-        settingActionCommandsForMainMenu();
+        settingActionCommands();
 
         panel.add(Box.createVerticalGlue());
         panel.add(studyButton);
@@ -112,7 +157,7 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public void settingActionCommandsForMainMenu() {
+    public void settingActionCommands() {
         studyButton.setActionCommand("studyButton");
         studyButton.addActionListener(this);
         quizButton.setActionCommand("quizButton");
@@ -127,6 +172,11 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
         quitButton.addActionListener(this);
         mainMenuButton.setActionCommand("mainMenuButton");
         mainMenuButton.addActionListener(this);
+
+        enterButtonForMajorChordQuiz.setActionCommand("enterButtonForMajorChordQuiz");
+        enterButtonForMajorChordQuiz.addActionListener(this);
+        enterButtonForMinorChordQuiz.setActionCommand("enterButtonForMinorChordQuiz");
+        enterButtonForMinorChordQuiz.addActionListener(this);
     }
 
     public void centerAligningButtonsForMainMenu() {
@@ -158,18 +208,121 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public void quiz() {
+    public void randomMajorChordQuiz() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
 
-        // TODO: randomly ask questions and give points when correct answers are returned
-        // Use combobox
+        randomNumber = rd.nextInt(MAX_NOTE_NUMBERS);
+        String randomNote = note.getNoteForMajor(randomNumber);
+        JLabel question = new JLabel("Select one of the notes that belongs to " + randomNote + " major chord.");
+
+        String[] majorChords = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+        JComboBox cb = new JComboBox(majorChords);
+
+        enterButtonForMajorChordQuiz.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                String submittedAnswerForQuiz = String.valueOf(cb.getSelectedItem());
+                String submittedAnswerForQuiz = (String) cb.getSelectedItem();
+//
+                if (chord.buildMajorTriadChord(randomNumber).contains(submittedAnswerForQuiz)) {
+                    character.earnPoint();
+                    JOptionPane.showMessageDialog(null,"Correct! You get one point.");
+                } else {
+                    JOptionPane.showMessageDialog(null,"Incorrect! You failed this one.");
+                }
+
+//                randomMinorChordQuiz();
+            }
+        });
+
+        panel.add(question);
+        panel.add(cb);
+        panel.add(enterButtonForMajorChordQuiz);
 
         panel.add(mainMenuButton);
 
         add(panel);
         setVisible(true);
+
+//        String submittedAnswerForQuiz = String.valueOf(cb.getSelectedItem());
+//
+//        if (chord.buildMajorTriadChord(randomNumber).contains(submittedAnswerForQuiz)) {
+//            character.earnPoint();
+////            return true;
+//        }
+//        return false;
     }
+
+    public void randomMinorChordQuiz() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+
+        randomNumber = rd.nextInt(MAX_NOTE_NUMBERS);
+        String randomNote = note.getNoteForMinor(randomNumber);
+        JLabel question = new JLabel("Select one of the notes that belongs to " + randomNote + " minor chord.");
+
+        String[] minorChords = { "c", "c#", "d", "d#", "e", "f", "f#", "g", "g#", "a", "a#", "b" };
+        JComboBox cb = new JComboBox(minorChords);
+
+        enterButtonForMinorChordQuiz.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                String submittedAnswerForQuiz = String.valueOf(cb.getSelectedItem());
+                String submittedAnswerForQuiz = (String) cb.getSelectedItem();
+//
+                if (chord.buildMinorTriadChord(randomNumber).contains(submittedAnswerForQuiz)) {
+                    character.earnPoint();
+                    JOptionPane.showMessageDialog(null,"Correct! You get one point.");
+                } else {
+                    JOptionPane.showMessageDialog(null,"Incorrect! You failed this one.");
+                }
+
+//                mainMenu();
+            }
+        });
+
+        panel.add(question);
+        panel.add(cb);
+        panel.add(enterButtonForMinorChordQuiz);
+
+        panel.add(mainMenuButton);
+
+        add(panel);
+        setVisible(true);
+
+//        String submitedAnswerforQuiz = cb.getSelectedItem().toString();
+//
+//        if (chord.buildMinorTriadChord(randomNumber).contains(submitedAnswerforQuiz)) {
+//            return true;
+//        }
+//        return false;
+    }
+
+//    // TODO: this method is currently just copied and pasted from UI.
+//    //       need to work on it, of course.
+//    public void randomMajorChordQuizMaker() {
+//        randomNumber = rd.nextInt(MAX_NOTE_NUMBERS);
+//        System.out.println("\nList one of the notes that belongs to "
+//                + note.getNoteForMajor(randomNumber) + " major chord.");
+//        System.out.println("(Please note that you automatically fail with one mistake. "
+//                + "Remember this program is case sensitive!)");
+//        randomNote = scanner.nextLine();
+//        chord = new Chord();
+//        if (chord.buildMajorTriadChord(randomNumber).contains(randomNote)) {
+//            System.out.println("\nCorrect! What's another note in " + randomNote + " major chord?");
+//            anotherRandomNote = scanner.nextLine();
+//            if (chord.buildMajorTriadChord(randomNumber).contains(randomNote)
+//                    && !anotherRandomNote.equalsIgnoreCase(randomNote)) {
+//                System.out.println("\nCorrect! You get one point.");
+//                character.earnPoint();
+//            } else if (anotherRandomNote.equalsIgnoreCase(randomNote)) {
+//                System.out.println("You already entered this note before. That's cheating! No points earned.");
+//            }
+//        } else {
+//            System.out.println("You failed the quiz.");
+//        }
+//    }
 
     public void editTheList() {
         JPanel panel = new JPanel();
@@ -196,6 +349,10 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
 
+        JLabel points = new JLabel();
+        points.setText("Your character has earned " + String.valueOf(character.getPoints()) + " points so far.");
+
+        panel.add(points);
         panel.add(mainMenuButton);
 
         add(panel);
@@ -261,7 +418,7 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
     }
 
     // TODO: need to print out each note of the chords selected
-    public void playChords() {
+    public void studyChords() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
 
@@ -290,6 +447,22 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    public void studyScales() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+
+        for (JButton jb : buttons.getButtonList()) {
+//            String noteName = jb.getText();
+            panel.add(jb);
+        }
+
+        panel.add(mainMenuButton);
+
+        add(panel);
+        setVisible(true);
+    }
+
+    // TODO: delete if not used
     public void playScales() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -320,6 +493,18 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
 
         add(panel);
         setVisible(true);
+    }
+
+    public void playSound(String soundName) {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
     }
 
 //    @Override
@@ -365,18 +550,19 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        playSound("./data/button-29.wav");
         getContentPane().removeAll();
         if (e.getActionCommand().equals("newGameButton")) {
-//            nameTheCharacter();
+            character = new Character();
             mainMenu();
         } else if (e.getActionCommand().equals("studyButton")) {
             study();
         } else if (e.getActionCommand().equals("studyChords")) {
-            playChords();
+            studyChords();
         } else if (e.getActionCommand().equals("studyScales")) {
-            playScales();
+            studyScales();
         } else if (e.getActionCommand().equals("quizButton")) {
-            quiz();
+            randomMajorChordQuiz();
         } else if (e.getActionCommand().equals("toMemorizeListButton")) {
             editTheList();
         } else if (e.getActionCommand().equals("checkPointButton")) {
@@ -391,8 +577,13 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
             System.exit(0);
         } else if (e.getActionCommand().equals("mainMenuButton")) {
             mainMenu();
+        } else if (e.getActionCommand().equals("enterButtonForMajorChordQuiz")) {
+//            character.earnPoint();
+            randomMinorChordQuiz();
+        } else if (e.getActionCommand().equals("enterButtonForMinorChordQuiz")) {
+            mainMenu();
         }
-        // the method using this is not being used anymore
+//         the method using this is not being used anymore
 //        if (e.getActionCommand().equals("Enter")) {
 //            getContentPane().removeAll();
 //            mainMenu();
@@ -400,6 +591,10 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new BecomeAMusicianGUI();
+        try {
+            new BecomeAMusicianGUI();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
