@@ -1,15 +1,21 @@
 package gui;
 
 import model.Note;
+import model.ToMemorize;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 import sound.NoteSound;
 
 import javax.sound.midi.MidiUnavailableException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
+// TODO: create a "back" or "main menu" button
 public class BecomeAMusicianGUI extends JFrame implements ActionListener {
-
+    private static final String JSON_STORE = "./data/myGameState.json";
     public static final int WIDTH = 640;
     public static final int HEIGHT = 480;
     public static final int RIGID_AREA_WIDTH = 10;
@@ -18,13 +24,18 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
     private Note note = new Note();
     private NoteButtons buttons = new NoteButtons();
     private NoteSound noteSound = new NoteSound();
+    private JsonWriter jsonWriter = new JsonWriter(JSON_STORE);
+    private JsonReader jsonReader = new JsonReader(JSON_STORE);
+    private ToMemorize chordsToMemorize = new ToMemorize();
+    private String characterName;
 
-    JButton studyButton = new JButton("Study chords/scales");
-    JButton quizButton = new JButton("Take a quiz");
-    JButton toMemorizeListButton = new JButton("View/Edit the list of Chords to Memorize");
-    JButton checkPointButton = new JButton("Check your character's points");
-    JButton saveButton = new JButton("Save the state to file");
-    JButton quitButton = new JButton("Quit");
+    private JButton studyButton = new JButton("Study chords/scales");
+    private JButton quizButton = new JButton("Take a quiz");
+    private JButton toMemorizeListButton = new JButton("View/Edit the list of Chords to Memorize");
+    private JButton checkPointButton = new JButton("Check your character's points");
+    private JButton saveButton = new JButton("Save the state to file");
+    private JButton quitButton = new JButton("Quit");
+    private JButton mainMenuButton = new JButton("Go back to the main menu");
 
     public BecomeAMusicianGUI() {
         super("Become a Musician");
@@ -41,7 +52,7 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
         initialJPanel.add(newGameButton);
         initialJPanel.add(Box.createRigidArea(new Dimension(0, RIGID_AREA_HEIGHT)));
         JButton loadGameButton = new JButton("Load Game");
-        loadGameButton.setActionCommand("loadGameButton");
+        loadGameButton.setActionCommand("loadButton");
         loadGameButton.addActionListener(this);
         initialJPanel.add(loadGameButton);
         initialJPanel.add(Box.createVerticalGlue());
@@ -114,6 +125,8 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
         saveButton.addActionListener(this);
         quitButton.setActionCommand("quitButton");
         quitButton.addActionListener(this);
+        mainMenuButton.setActionCommand("mainMenuButton");
+        mainMenuButton.addActionListener(this);
     }
 
     public void centerAligningButtonsForMainMenu() {
@@ -139,8 +152,86 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
         panel.add(studyChords);
         panel.add(studyScales);
 
+        panel.add(mainMenuButton);
+
         add(panel);
         setVisible(true);
+    }
+
+    public void quiz() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+
+        // TODO: randomly ask questions and give points when correct answers are returned
+        // Use combobox
+
+        panel.add(mainMenuButton);
+
+        add(panel);
+        setVisible(true);
+    }
+
+    public void editTheList() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+
+//        JButton viewList = new JButton("View the list");
+//        viewList.setActionCommand("viewList");
+//        viewList.addActionListener(this);
+//        JButton editList = new JButton("Add a chord to the list");
+//        editList.setActionCommand("editList");
+//        editList.addActionListener(this);
+
+//        panel.add(viewList);
+//        panel.add(editList);
+
+        panel.add(mainMenuButton);
+
+        add(panel);
+        setVisible(true);
+    }
+
+    // TODO: just print the character's point
+    public void checkPoint() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+
+        panel.add(mainMenuButton);
+
+        add(panel);
+        setVisible(true);
+    }
+
+    // TODO: save. no need for a new panel. maybe a message pop up (get help at OH!)
+    // TODO: need to fix the pop-up message keep popping up
+    public void saveState() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(chordsToMemorize);
+            jsonWriter.close();
+//            System.out.println("Saved " + characterName + "'s progress to " + JSON_STORE);
+            JOptionPane.showMessageDialog(null,"The current state has been saved to file");
+            mainMenu();
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // TODO: Visit OH (office hours) for help!!!
+    public void loadState() {
+        try {
+            chordsToMemorize = jsonReader.read();
+//            System.out.println("Loaded " + characterName + "'s progress from " + JSON_STORE);
+            getContentPane().removeAll();
+            mainMenu();
+            JOptionPane.showMessageDialog(null,"Loaded the previous state");
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
+    public void saveBeforeQuitting() {
+
     }
 
     public void playNotes() {
@@ -193,6 +284,8 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
             setVisible(true);
         }
 
+        panel.add(mainMenuButton);
+
         add(panel);
         setVisible(true);
     }
@@ -201,7 +294,7 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
 
-        // too messy. no sounds will be provided for studying scales
+        // sound too messy. no sounds will be provided for studying scales
 //        for (JButton jb : buttons.getButtonList()) {
 //            String noteName = jb.getText();
 //            jb.addMouseListener(new MouseAdapter() {
@@ -223,29 +316,81 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
 //            panel.add(jb);
 //        }
 
+        panel.add(mainMenuButton);
+
         add(panel);
         setVisible(true);
     }
 
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        if (e.getActionCommand().equals("newGameButton")) {
+//            getContentPane().removeAll();
+////            nameTheCharacter();
+//            mainMenu();
+//        } else if (e.getActionCommand().equals("studyButton")) {
+//            getContentPane().removeAll();
+//            study();
+//        } else if (e.getActionCommand().equals("studyChords")) {
+//            getContentPane().removeAll();
+//            playChords();
+//        } else if (e.getActionCommand().equals("studyScales")) {
+//            getContentPane().removeAll();
+//            playScales();
+//        } else if (e.getActionCommand().equals("quizButton")) {
+//            getContentPane().removeAll();
+//            quiz();
+//        } else if (e.getActionCommand().equals("toMemorizeListButton")) {
+//            getContentPane().removeAll();
+//            editTheList();
+//        } else if (e.getActionCommand().equals("checkPointButton")) {
+//            getContentPane().removeAll();
+//            checkPoint();
+//        } else if (e.getActionCommand().equals("saveButton")) {
+//            getContentPane().removeAll();
+//            saveState();
+//        } else if (e.getActionCommand().equals("loadButton")) {
+//            getContentPane().removeAll();
+//            loadState();
+//        } else if (e.getActionCommand().equals("quitButton")) {
+//            // we need to ask the user whether they want to save the state
+//            System.exit(0);
+//        }
+//        // the method using this is not being used anymore
+////        if (e.getActionCommand().equals("Enter")) {
+////            getContentPane().removeAll();
+////            mainMenu();
+////        }
+//    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
+        getContentPane().removeAll();
         if (e.getActionCommand().equals("newGameButton")) {
-            getContentPane().removeAll();
 //            nameTheCharacter();
-//            NameTheCharacter ntc = new NameTheCharacter();
             mainMenu();
-        }
-        if (e.getActionCommand().equals("studyButton")) {
-            getContentPane().removeAll();
+        } else if (e.getActionCommand().equals("studyButton")) {
             study();
-        }
-        if (e.getActionCommand().equals("studyChords")) {
-            getContentPane().removeAll();
+        } else if (e.getActionCommand().equals("studyChords")) {
             playChords();
-        }
-        if (e.getActionCommand().equals("studyScales")) {
-            getContentPane().removeAll();
+        } else if (e.getActionCommand().equals("studyScales")) {
             playScales();
+        } else if (e.getActionCommand().equals("quizButton")) {
+            quiz();
+        } else if (e.getActionCommand().equals("toMemorizeListButton")) {
+            editTheList();
+        } else if (e.getActionCommand().equals("checkPointButton")) {
+            checkPoint();
+        } else if (e.getActionCommand().equals("saveButton")) {
+            saveState();
+        } else if (e.getActionCommand().equals("loadButton")) {
+            loadState();
+        } else if (e.getActionCommand().equals("quitButton")) {
+            // we need to ask the user whether they want to save the state
+//            saveBeforeQuitting();
+            System.exit(0);
+        } else if (e.getActionCommand().equals("mainMenuButton")) {
+            mainMenu();
         }
         // the method using this is not being used anymore
 //        if (e.getActionCommand().equals("Enter")) {
