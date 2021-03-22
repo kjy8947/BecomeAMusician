@@ -31,6 +31,11 @@ public class JsonWriter {
         saveToFile(json.toString(TAB));
     }
 
+    public void write(model.Character character) {
+        JSONObject json = character.toJson();
+        saveToFile(json.toString(TAB));
+    }
+
     // MODIFIES: this
     // EFFECTS: closes writer
     public void close() {

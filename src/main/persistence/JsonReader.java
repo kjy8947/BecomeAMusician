@@ -1,5 +1,6 @@
 package persistence;
 
+import model.Character;
 import model.ToMemorize;
 
 import java.io.IOException;
@@ -28,6 +29,12 @@ public class JsonReader {
         return parseState(jsonObject);
     }
 
+    public Character readPoints() throws IOException {
+        String jsonData = readFile(source);
+        JSONObject jsonObject = new JSONObject(jsonData);
+        return parsePoint(jsonObject);
+    }
+
     // EFFECTS: reads source file as string and returns it
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
@@ -50,5 +57,13 @@ public class JsonReader {
             tm.addChord((String) o.get("root note"));
         }
         return tm;
+    }
+
+    private Character parsePoint(JSONObject jsonObject) {
+//        JSONObject object = jsonObject;
+
+        Character character = new Character();
+        character.setPoints(jsonObject.getInt("character's points"));
+        return character;
     }
 }

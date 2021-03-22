@@ -22,6 +22,7 @@ import persistence.JsonWriter;
  */
 public class BecomeAMusician {
     private static final String JSON_STORE = "./data/myGameState.json";
+    private static final String JSON_STORE_CHARACTER = "./data/myCharacterState.json";
     public static final int MAX_NOTE_NUMBERS = 12;
 
     private ArrayList<String> activities = new ArrayList<>();
@@ -38,7 +39,9 @@ public class BecomeAMusician {
     private Scale scale;
     private String anotherRandomNote;
     private JsonWriter jsonWriter;
+    private JsonWriter jsonWriter1;
     private JsonReader jsonReader;
+    private JsonReader jsonReader1;
 
     // Starts the program
     // Begins w/ the brief instructions followed by character creation
@@ -55,7 +58,9 @@ public class BecomeAMusician {
         scanner = new Scanner(System.in);
         characterName = "";
         jsonWriter = new JsonWriter(JSON_STORE);
+        jsonWriter1 = new JsonWriter(JSON_STORE_CHARACTER);
         jsonReader = new JsonReader(JSON_STORE);
+        jsonReader1 = new JsonReader(JSON_STORE_CHARACTER);
 
         instructions();
         createCharacter();
@@ -170,6 +175,7 @@ public class BecomeAMusician {
             System.out.println("Your character has earned " + character.getPoints() + " point(s) so far.");
         } else if (activity.equals("5")) {
             saveTheState();
+            saveTheCharacter();
         } else if (activity.equals("6")) {
             loadTheState();
         } else {
@@ -297,15 +303,17 @@ public class BecomeAMusician {
         if (chord.buildMajorTriadChord(randomNumber).contains(randomNote)) {
             System.out.println("\nCorrect! What's another note in " + randomNote + " major chord?");
             anotherRandomNote = scanner.nextLine();
-            if (chord.buildMajorTriadChord(randomNumber).contains(randomNote)
+            if (chord.buildMajorTriadChord(randomNumber).contains(anotherRandomNote)
                     && !anotherRandomNote.equalsIgnoreCase(randomNote)) {
                 System.out.println("\nCorrect! You get one point.");
                 character.earnPoint();
             } else if (anotherRandomNote.equalsIgnoreCase(randomNote)) {
                 System.out.println("You already entered this note before. That's cheating! No points earned.");
+            } else {
+                System.out.println("Incorrect! You failed the quiz.");
             }
         } else {
-            System.out.println("You failed the quiz.");
+            System.out.println("Incorrect! You failed the quiz.");
         }
     }
 
@@ -325,15 +333,17 @@ public class BecomeAMusician {
         if (chord.buildMinorTriadChord(randomNumber).contains(randomNote)) {
             System.out.println("\nCorrect! What's another note in " + randomNote + " minor chord?");
             anotherRandomNote = scanner.nextLine();
-            if (chord.buildMinorTriadChord(randomNumber).contains(randomNote)
+            if (chord.buildMinorTriadChord(randomNumber).contains(anotherRandomNote)
                     && !anotherRandomNote.equalsIgnoreCase(randomNote)) {
                 System.out.println("\nCorrect! You get one point.");
                 character.earnPoint();
             } else if (anotherRandomNote.equalsIgnoreCase(randomNote)) {
                 System.out.println("You already entered this note before. That's cheating! No points earned.");
+            } else {
+                System.out.println("Incorrect! You failed the quiz.");
             }
         } else {
-            System.out.println("You failed the quiz.");
+            System.out.println("Incorrect! You failed the quiz.");
         }
     }
 
@@ -368,8 +378,25 @@ public class BecomeAMusician {
     public void saveTheState() {
         try {
             jsonWriter.open();
+//            jsonWriter1.open();
             jsonWriter.write(chordsToMemorize);
+//            jsonWriter1.write(character);
             jsonWriter.close();
+//            jsonWriter1.close();
+            System.out.println("Saved " + characterName + "'s progress to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    public void saveTheCharacter() {
+        try {
+//            jsonWriter.open();
+            jsonWriter1.open();
+//            jsonWriter.write(chordsToMemorize);
+            jsonWriter1.write(character);
+//            jsonWriter.close();
+            jsonWriter1.close();
             System.out.println("Saved " + characterName + "'s progress to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
@@ -382,6 +409,7 @@ public class BecomeAMusician {
     public void loadTheState() {
         try {
             chordsToMemorize = jsonReader.read();
+            character = jsonReader1.readPoints();
             System.out.println("Loaded " + characterName + "'s progress from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);

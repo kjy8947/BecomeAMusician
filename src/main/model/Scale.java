@@ -11,6 +11,11 @@ public class Scale {
     private ArrayList<String> scale;
     private String rootNote;
 
+    // EFFECTS:  constructs a Scale object w/o any parameter given
+    public Scale() {
+
+    }
+
     // constructs a Scale object w/ the given rootNote as its root note
     // REQUIRES: a root needs to be one of the 7 letters between A and G
     //           an uppercase letter for a major scale; a lowercase letter for a minor scale
