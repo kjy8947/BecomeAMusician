@@ -406,7 +406,7 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
             jsonWriter1.open();
             jsonWriter1.write(character);
             jsonWriter1.close();
-            JOptionPane.showMessageDialog(null, "The current state has been saved to file");
+//            JOptionPane.showMessageDialog(null, "The current state has been saved to file");
             mainMenu();
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE_CHARACTER);
