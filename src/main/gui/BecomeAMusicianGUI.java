@@ -2,7 +2,6 @@ package gui;
 
 import model.*;
 import model.Character;
-import org.json.JSONObject;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import sound.NoteSound;
@@ -21,7 +20,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 import static ui.BecomeAMusician.MAX_NOTE_NUMBERS;
 
@@ -60,23 +58,26 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
     private JsonReader jsonReader = new JsonReader(JSON_STORE);
     private JsonReader jsonReader1 = new JsonReader(JSON_STORE_CHARACTER);
     private JButton newGameButton = new JButton("New Game");
-    private JButton studyButton = new JButton("Study chords/scales");
-    private JButton studyChordsButton = new JButton("Study chords");
-    private JButton studyScalesButton = new JButton("Study scales");
-    private JButton quizButton = new JButton("Take a quiz");
-    private JButton toMemorizeListButton = new JButton("View/Edit the list of Chords to Memorize");
-    private JButton checkPointButton = new JButton("Check your character's points");
-    private JButton saveButton = new JButton("Save the state to file");
-    private JButton loadButton = new JButton("Load Game");
-    private JButton quitButton = new JButton("Quit");
-    private JButton mainMenuButton = new JButton("Go back to the main menu");
-    private JButton enterButtonForMajorChordQuiz = new JButton("Enter");
-    private JButton enterButtonForMinorChordQuiz = new JButton("Enter");
+    private JButton studyButton;
+    private JButton studyChordsButton;
+    private JButton studyScalesButton;
+    private JButton quizButton;
+    private JButton toMemorizeListButton;
+    private JButton checkPointButton;
+    private JButton saveButton;
+    private JButton loadButton;
+    private JButton quitButton;
+    private JButton mainMenuButton;
+    private JButton enterButtonForMajorChordQuiz;
+    private JButton enterButtonForMinorChordQuiz;
+
+    private boolean actionsSet;
 
     // Starts the program
     // Setup a JFrame with its preferred size
     public BecomeAMusicianGUI() throws IOException {
         super("Become a Musician");
+        actionsSet = false;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
@@ -91,6 +92,8 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
     public void startScreen() {
         JPanel initialJPanel = new JPanel();
         initialJPanel.setLayout(new BoxLayout(initialJPanel, BoxLayout.Y_AXIS));
+
+        buttonSetUpForMainMenu();
 
         newGameButton.setActionCommand("newGameButton");
         newGameButton.addActionListener(this);
@@ -112,7 +115,7 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        settingActionCommands();
+        buttonSetUpForMainMenu();
 
         panel.add(Box.createVerticalGlue());
         panel.add(loadButton);
@@ -136,7 +139,18 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public void settingActionCommands() {
+    public void buttonSetUpForMainMenu() {
+        studyButton = new JButton("Study chords/scales");
+//        studyChordsButton = new JButton("Study chords");
+//        studyScalesButton = new JButton("Study scales");
+        quizButton = new JButton("Take a quiz");
+        toMemorizeListButton = new JButton("View/Edit the list of Chords to Memorize");
+        checkPointButton = new JButton("Check your character's points");
+        saveButton = new JButton("Save the state to file");
+        loadButton = new JButton("Load Game");
+        quitButton = new JButton("Quit");
+
+
         studyButton.setActionCommand("studyButton");
         studyButton.addActionListener(this);
         quizButton.setActionCommand("quizButton");
@@ -151,8 +165,24 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
         loadButton.addActionListener(this);
         quitButton.setActionCommand("quitButton");
         quitButton.addActionListener(this);
+    }
+
+    public void otherButtonSetUp() {
+        mainMenuButton = new JButton("Go back to the main menu");
+
         mainMenuButton.setActionCommand("mainMenuButton");
         mainMenuButton.addActionListener(this);
+
+        studyChordsButton = new JButton("Study chords");
+        studyScalesButton = new JButton("Study scales");
+
+        studyChordsButton.setActionCommand("studyChordsButton");
+        studyChordsButton.addActionListener(this);
+        studyScalesButton.setActionCommand("studyScalesButton");
+        studyScalesButton.addActionListener(this);
+
+        enterButtonForMajorChordQuiz = new JButton("Enter");
+        enterButtonForMinorChordQuiz = new JButton("Enter");
 
         enterButtonForMajorChordQuiz.setActionCommand("enterButtonForMajorChordQuiz");
         enterButtonForMajorChordQuiz.addActionListener(this);
@@ -161,6 +191,7 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
     }
 
     public void centerAligningButtonsForMainMenu() {
+        loadButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         studyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         quizButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         toMemorizeListButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -172,11 +203,11 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
     public void study() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
-
-        studyChordsButton.setActionCommand("studyChordsButton");
-        studyChordsButton.addActionListener(this);
-        studyScalesButton.setActionCommand("studyScalesButton");
-        studyScalesButton.addActionListener(this);
+//
+//        studyChordsButton.setActionCommand("studyChordsButton");
+//        studyChordsButton.addActionListener(this);
+//        studyScalesButton.setActionCommand("studyScalesButton");
+//        studyScalesButton.addActionListener(this);
 
         panel.add(studyChordsButton);
         panel.add(studyScalesButton);
@@ -194,7 +225,8 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
 
         randomNumber = rd.nextInt(MAX_NOTE_NUMBERS);
         String randomNote = note.getNoteForMajor(randomNumber);
-        JLabel question = new JLabel("Select one of the notes that belongs to " + randomNote + " major chord.");
+        JLabel question = new JLabel("Select one of the notes (other than the root note) that belongs to "
+                + randomNote + " major chord.");
 
         String[] majorChords = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
         JComboBox cb = new JComboBox(majorChords);
@@ -237,7 +269,8 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
 
         randomNumber = rd.nextInt(MAX_NOTE_NUMBERS);
         String randomNote = note.getNoteForMinor(randomNumber);
-        JLabel question = new JLabel("Select one of the notes that belongs to " + randomNote + " minor chord.");
+        JLabel question = new JLabel("Select one of the notes (other than the root note) that belongs to "
+                + randomNote + " minor chord.");
 
         String[] minorChords = {"c", "c#", "d", "d#", "e", "f", "f#", "g", "g#", "a", "a#", "b"};
         JComboBox cb = new JComboBox(minorChords);
@@ -361,7 +394,7 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
             jsonWriter.open();
             jsonWriter.write(chordsToMemorize);
             jsonWriter.close();
-            JOptionPane.showMessageDialog(null,"The current state has been saved to file");
+            JOptionPane.showMessageDialog(null, "The current state has been saved to file");
             mainMenu();
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
@@ -373,7 +406,7 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
             jsonWriter1.open();
             jsonWriter1.write(character);
             jsonWriter1.close();
-            JOptionPane.showMessageDialog(null,"The current state has been saved to file");
+            JOptionPane.showMessageDialog(null, "The current state has been saved to file");
             mainMenu();
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE_CHARACTER);
@@ -399,7 +432,7 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
             character = jsonReader1.readPoints();
             getContentPane().removeAll();
             mainMenu();
-            JOptionPane.showMessageDialog(null,"Loaded the previous state");
+            JOptionPane.showMessageDialog(null, "Loaded the previous state");
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
@@ -407,7 +440,7 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
 
     public void saveBeforeQuitting() {
         int userSelection = JOptionPane.showConfirmDialog(null,
-                "Do you want to save the current state?","Select an option", JOptionPane.YES_NO_OPTION);
+                "Do you want to save the current state?", "Select an option", JOptionPane.YES_NO_OPTION);
 
         if (userSelection == 0) {
             saveOnQuit();
@@ -539,6 +572,8 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         playSound("./data/buttonClick.wav");
+        buttonSetUpForMainMenu(); // new
+        otherButtonSetUp(); // new
         getContentPane().removeAll();
         if (e.getActionCommand().equals("newGameButton")) {
             character = new Character();
