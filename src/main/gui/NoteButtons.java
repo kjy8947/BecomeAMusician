@@ -34,6 +34,7 @@ public class NoteButtons {
         buttonList.add(buttonB);
     }
 
+    // EFFECTS: returns the list of buttons in buttonList
     public ArrayList<JButton> getButtonList() {
         return buttonList;
     }

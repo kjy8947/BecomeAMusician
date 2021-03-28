@@ -23,7 +23,6 @@ public class Chord implements Writable {
     // constructs a Chord object w/ the given rootNote as its root note
     // REQUIRES: a root needs to be one of the 7 letters between A and G
     //           an uppercase letter for a major chord; a lowercase letter for a minor chord
-    // MODIFIES: this
     // EFFECTS:  runs the buildMajorChord method if the input letter is in uppercase
     //           runs the buildMinorChord method if the input letter is in lowercase
     public Chord(String rootNote) {
@@ -37,7 +36,8 @@ public class Chord implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS:  builds a major chord by adding the major 3rd and the perfect 5th notes to the root note given
+    // EFFECTS:  builds a major chord by adding the major 3rd (+ 4) and the perfect 5th (+ 7) notes
+    //           to the root note given
     public ArrayList buildMajorTriadChord(int root) {
         Note note = new Note();
         chord = new ArrayList<>();
@@ -54,7 +54,8 @@ public class Chord implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS:  builds a minor chord by adding the minor 3rd and the perfect 5th notes to the root note given
+    // EFFECTS:  builds a minor chord by adding the minor 3rd (+ 3) and the perfect 5th (+ 7) notes
+    //           to the root note given
     public ArrayList buildMinorTriadChord(int root) {
         Note note = new Note();
         chord = new ArrayList<>();
@@ -82,10 +83,10 @@ public class Chord implements Writable {
         return rootNote.equals(chord.rootNote);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(rootNote);
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(rootNote);
+//    }
 
     // EFFECTS: returns the root note of the chord
     public String getRootNote() {

@@ -20,7 +20,7 @@ public class ToMemorize implements Writable {
 
     // REQUIRES: String rootNote is an element of Note
     // MODIFIES: this
-    // EFFECTS: add a chord (with a rootNote as its root note) to the list and then returns the list
+    // EFFECTS: adds a chord (with rootNote as its root note) to the list and then returns the list
     public ArrayList addChord(String rootNote) {
         Chord chord = new Chord(rootNote);
         if (!chordsToMemorize.contains(chord)) {
@@ -29,7 +29,9 @@ public class ToMemorize implements Writable {
         return chordsToMemorize;
     }
 
-     //not working, maybe with the way I designed how a chord object gets created
+    // REQUIRES: rootNote must be one of the 12 keys in notesStrToIntForMajor of Note class in model package
+    // MODIFIES: this
+    // EFFECTS: removes a chord (with rootNote as its root note) from the list
     public void removeChord(String rootNote) {
         Chord chord = new Chord(rootNote);
         if (chordsToMemorize.contains(chord)) {
@@ -37,6 +39,7 @@ public class ToMemorize implements Writable {
         }
     }
 
+    // EFFECTS: returns the list of chords in chordsToMemorize
     public ArrayList getChords() {
         return chordsToMemorize;
     }

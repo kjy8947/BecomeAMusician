@@ -19,7 +19,6 @@ public class Scale {
     // constructs a Scale object w/ the given rootNote as its root note
     // REQUIRES: a root needs to be one of the 7 letters between A and G
     //           an uppercase letter for a major scale; a lowercase letter for a minor scale
-    // MODIFIES: this
     // EFFECTS:  runs the buildMajorScale method if the input letter is in uppercase
     //           runs the buildMinorScale method if the input letter is in lowercase
     public Scale(String rootNote) {

@@ -22,13 +22,15 @@ public class JsonReader {
     }
 
     // EFFECTS: reads the list of chords to memorize from file and returns it;
-    // throws IOException if an error occurs reading data from file
+    //          throws IOException if an error occurs reading data from file
     public ToMemorize read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseState(jsonObject);
     }
 
+    // EFFECTS: reads the character's points from file and returns it
+    //          throws IOException if an error occurs reading data from file
     public Character readPoints() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
@@ -59,9 +61,8 @@ public class JsonReader {
         return tm;
     }
 
+    // EFFECTS: parses the points earned from the previous play and returns it
     private Character parsePoint(JSONObject jsonObject) {
-//        JSONObject object = jsonObject;
-
         Character character = new Character();
         character.setPoints(jsonObject.getInt("character's points"));
         return character;

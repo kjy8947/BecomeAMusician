@@ -287,6 +287,7 @@ public class BecomeAMusician {
         System.out.println((scale.buildMinorScale(noteValue)));
     }
 
+    // MODIFIES: character
     // EFFECTS: tests the user w/ knowledge of a randomly generated major chord
     //          Users will earn a point if they enter two of the three notes in the chord asked
     //          If the 2nd note is the same one as the 1st note, the program perceives it as cheating, thus failing
@@ -317,6 +318,7 @@ public class BecomeAMusician {
         }
     }
 
+    // MODIFIES: character
     // EFFECTS: tests the user w/ knowledge of a randomly generated minor chord
     //          Users will earn a point if they enter two of the three notes in the chord asked
     //          If the 2nd note is the same one as the 1st note, the program perceives it as cheating, thus failing
@@ -347,6 +349,7 @@ public class BecomeAMusician {
         }
     }
 
+    // MODIFIES: chordsToMemorize
     // EFFECTS: lets the user to view the list of chords they put in the 'list to memorize' by selecting 1
     //          User can also add chords to the list by selecting 2
     //          Only valid chords can be added to the list
@@ -378,24 +381,20 @@ public class BecomeAMusician {
     public void saveTheState() {
         try {
             jsonWriter.open();
-//            jsonWriter1.open();
             jsonWriter.write(chordsToMemorize);
-//            jsonWriter1.write(character);
             jsonWriter.close();
-//            jsonWriter1.close();
             System.out.println("Saved " + characterName + "'s progress to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
     }
 
+    // CITATION: I used saveWorkRoom() from JsonSerializationDemo as a reference
+    // EFFECTS: saves the current points of the character to file
     public void saveTheCharacter() {
         try {
-//            jsonWriter.open();
             jsonWriter1.open();
-//            jsonWriter.write(chordsToMemorize);
             jsonWriter1.write(character);
-//            jsonWriter.close();
             jsonWriter1.close();
             System.out.println("Saved " + characterName + "'s progress to " + JSON_STORE);
         } catch (FileNotFoundException e) {

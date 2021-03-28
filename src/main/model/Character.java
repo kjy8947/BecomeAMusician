@@ -15,22 +15,27 @@ public class Character implements Writable {
         points = 0;
     }
 
-    // MODIFIES: points
+    // MODIFIES: this
     // EFFECTS: adds a point to the points already earned
     public void earnPoint() {
         points += 1;
     }
 
+    // MODIFIES: this
+    // EFFECTS: subtracts a point from the points earned so far
     public void losePoint() {
         if (0 < points) {
             points -= 1;
         }
     }
+
     // EFFECTS: returns the points earned so far
     public int getPoints() {
         return points;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets the user's (their character's) points
     public void setPoints(int points) {
         this.points = points;
     }
@@ -43,16 +48,4 @@ public class Character implements Writable {
         json.put("character's points", getPoints());
         return json;
     }
-
-//    // CITATION: this method has been copied (and then modified) from JsonSerializationDemo
-//    // EFFECTS: returns chords in this list to memorize as a JSON array
-//    public JSONArray chordsToJson() {
-//        JSONArray jsonArray = new JSONArray();
-//
-//        for (Chord c : chordsToMemorize) {
-//            jsonArray.put(c.toJson());
-//        }
-//
-//        return jsonArray;
-//    }
 }
