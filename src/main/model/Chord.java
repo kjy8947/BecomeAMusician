@@ -83,11 +83,6 @@ public class Chord implements Writable {
         return rootNote.equals(chord.rootNote);
     }
 
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(rootNote);
-//    }
-
     // EFFECTS: returns the root note of the chord
     public String getRootNote() {
         return rootNote;

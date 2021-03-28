@@ -20,9 +20,9 @@ public class ToMemorizeTest {
         ArrayList chords = listToMemorize.addChord("C");
         assertEquals(1, chords.size());
         listToMemorize.addChord("C");
-        assertEquals(2, chords.size());
+        assertEquals(1, chords.size());
         listToMemorize.addChord("c");
-        assertEquals(3, chords.size());
+        assertEquals(2, chords.size());
     }
 
     @Test
