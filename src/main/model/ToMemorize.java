@@ -23,17 +23,23 @@ public class ToMemorize implements Writable {
     // EFFECTS: add a chord (with a rootNote as its root note) to the list and then returns the list
     public ArrayList addChord(String rootNote) {
         Chord chord = new Chord(rootNote);
-        this.chordsToMemorize.add(chord);
+        if (!chordsToMemorize.contains(chord)) {
+            this.chordsToMemorize.add(chord);
+        }
         return chordsToMemorize;
     }
 
-    // not working, maybe with the way I designed how a chord object gets created
-//    public void removeChord(String rootNote) {
-//        Chord chord = new Chord(rootNote);
-//        if (chordsToMemorize.contains(chord)) {
-//            chordsToMemorize.remove(chord);
-//        }
-//    }
+     //not working, maybe with the way I designed how a chord object gets created
+    public void removeChord(String rootNote) {
+        Chord chord = new Chord(rootNote);
+        if (chordsToMemorize.contains(chord)) {
+            chordsToMemorize.remove(chord);
+        }
+    }
+
+    public ArrayList getChords() {
+        return chordsToMemorize;
+    }
 
     // EFFECTS: returns the list of the chords in the list to memorize (chord names are represented w/ their root notes)
     public List<Chord> getMaterialsToMemorize() {

@@ -21,6 +21,11 @@ public class Character implements Writable {
         points += 1;
     }
 
+    public void losePoint() {
+        if (0 < points) {
+            points -= 1;
+        }
+    }
     // EFFECTS: returns the points earned so far
     public int getPoints() {
         return points;
@@ -29,6 +34,7 @@ public class Character implements Writable {
     public void setPoints(int points) {
         this.points = points;
     }
+
 
     @Override
     // CITATION: this method has been copied (and then modified) from JsonSerializationDemo

@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /*
  * Represents a triad chord
@@ -67,6 +68,23 @@ public class Chord implements Writable {
                     + "(an uppercase letter for a major chord; a lowercase letter for a minor chord).");
             return chord;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Chord chord = (Chord) o;
+        return rootNote.equals(chord.rootNote);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rootNote);
     }
 
     // EFFECTS: returns the root note of the chord
