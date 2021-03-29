@@ -61,4 +61,23 @@ class JsonWriterTest {
             fail("Exception should not have been thrown");
         }
     }
+
+    @Test
+    void testWriterCharacterPoints() {
+        try {
+            model.Character character = new model.Character();
+            character.setPoints(15);
+            JsonWriter writer = new JsonWriter("./data/testWriterCharacterPoints.json");
+            writer.open();
+            writer.write(character);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterCharacterPoints.json");
+            character = reader.readPoints();
+            int points = character.getPoints();
+            assertEquals(15, points);
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
 }

@@ -26,6 +26,17 @@ public class ToMemorizeTest {
     }
 
     @Test
+    public void testRemoveChord() {
+        ArrayList chords = listToMemorize.getChords();
+        listToMemorize.removeChord("C");
+        assertEquals(0, chords.size());
+        chords = listToMemorize.addChord("C");
+        assertEquals(1, chords.size());
+        listToMemorize.removeChord("C");
+        assertEquals(0, chords.size());
+    }
+
+    @Test
     public void testGetMaterialsToMemorize() {
         assertTrue(listToMemorize.getMaterialsToMemorize().isEmpty());
         listToMemorize.addChord("C");

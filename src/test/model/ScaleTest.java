@@ -7,6 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ScaleTest {
 
     @Test
+    public void testScaleConstructorNoArgument() {
+        Scale dummyScale = new Scale();
+    }
+
+    @Test
     public void testScaleConstructorMajorScale() {
         Note note = new Note();
         Scale scaleForTest = new Scale("C");

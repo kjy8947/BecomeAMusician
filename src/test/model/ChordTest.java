@@ -3,7 +3,7 @@ package model;
 import org.json.JSONArray;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ChordTest {
 
@@ -106,5 +106,14 @@ public class ChordTest {
         assertEquals("{\"root note\":\"C\"}", jsonArray.get(0).toString());
         assertEquals("{\"root note\":\"D\"}", jsonArray.get(1).toString());
         assertEquals("{\"root note\":\"E\"}", jsonArray.get(2).toString());
+    }
+
+    @Test
+    public void testEquals() {
+        Chord chord1 = new Chord("C");
+        Chord chord2 = new Chord("C");
+        assertTrue(chord1.getRootNote() == chord2.getRootNote());
+        Chord chord3 = new Chord("D");
+        assertFalse(chord1.getRootNote() == chord3.getRootNote());
     }
 }
