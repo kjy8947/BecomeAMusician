@@ -20,3 +20,19 @@ chords to memorize.
 character's list of chords to memorize.
 - (phase 3) As a user, I want to be able to save my points and load it next time I play.
 - (phase 3) As a user, I want to be able to remove chords from my list of chords to memorize.
+
+
+## Phase 4: Task 2
+
+I'm using the **Map interface** in one of my model classes, **Note**.
+
+The following 4 methods in the Note class: (1) setNotesIntToStrForMajor(), (2) setNotesIntToStrForMinor(), 
+(3) setNotesStrToIntForMajor(), and (4) setNotesStrToIntForMinor(), each have a hashmap with 12 key & value pairs. 
+Each of the 4 maps has a method that converts either an int to a String or a String to an int. These 4 methods are 
+named: (1) getNoteForMajor(int key), (2) getNoteForMajor(String key), (3) getNoteForMinor(int key), (4) getNoteForMinor
+(String key). These methods are used in other model classes (i.e. Chord, Scale) that depend on the Note class, as well 
+as in BecomeAMusician (ui) and BecomeAMusician (gui) classes.  
+TMI: The purpose of using the maps was: (when the inputs are String: ) to read user's inputs (i.e. note names) and to 
+convert these to number values, which enable calculating the intervals between the notes for major/minor chords/scales; 
+(when the inputs are int: ) users will have no idea if they were given, for example, '4' instead of a note, C/c. 
+By converting the number value to its corresponding String value, users will be given an actual note name.
