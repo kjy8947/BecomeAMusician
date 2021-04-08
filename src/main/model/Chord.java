@@ -14,6 +14,7 @@ public class Chord implements Writable {
 
     private ArrayList<String> chord;
     private String rootNote;
+    private Note note = new Note();
 
     // EFFECTS:  constructs a Chord object w/o any parameter given
     public Chord() {
@@ -27,7 +28,6 @@ public class Chord implements Writable {
     //           runs the buildMinorChord method if the input letter is in lowercase
     public Chord(String rootNote) {
         this.rootNote = rootNote;
-        Note note = new Note();
         if (rootNote.equals(rootNote.toUpperCase())) {
             buildMajorTriadChord(note.getNoteForMajor(rootNote));
         } else if (rootNote.equals(rootNote.toLowerCase())) {
@@ -39,7 +39,6 @@ public class Chord implements Writable {
     // EFFECTS:  builds a major chord by adding the major 3rd (+ 4) and the perfect 5th (+ 7) notes
     //           to the root note given
     public ArrayList buildMajorTriadChord(int root) {
-        Note note = new Note();
         chord = new ArrayList<>();
         if (0 <= root && root < MAX_NOTE_NUMBERS) {
             chord.add(note.getNoteForMajor(root));
@@ -57,7 +56,6 @@ public class Chord implements Writable {
     // EFFECTS:  builds a minor chord by adding the minor 3rd (+ 3) and the perfect 5th (+ 7) notes
     //           to the root note given
     public ArrayList buildMinorTriadChord(int root) {
-        Note note = new Note();
         chord = new ArrayList<>();
         if (0 <= root && root < MAX_NOTE_NUMBERS) {
             chord.add(note.getNoteForMinor(root));

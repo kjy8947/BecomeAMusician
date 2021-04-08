@@ -55,6 +55,7 @@ public class ToMemorize implements Writable {
 
     @Override
     // CITATION: this method has been copied (and then modified) from JsonSerializationDemo
+    // EFFECTS: putting the JSONArray object returned from chordToJson() to JSONObject
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("chords to memorize", chordsToJson());

@@ -43,6 +43,7 @@ public class Character implements Writable {
 
     @Override
     // CITATION: this method has been copied (and then modified) from JsonSerializationDemo
+    // EFFECTS: converts the character's points to a JSONObject, so it can be saved in the json file
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("character's points", getPoints());

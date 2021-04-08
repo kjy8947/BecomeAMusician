@@ -502,29 +502,19 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
     }
 
     // CITATION: I used saveWorkRoom() from JsonSerializationDemo as a reference
-    // EFFECTS: saves the current chordsToMemorize to file
+    // EFFECTS: saves the current chordsToMemorize and character points to file
     public void saveState() {
         try {
             jsonWriter.open();
             jsonWriter.write(chordsToMemorize);
             jsonWriter.close();
+            jsonWriter1.open();
+            jsonWriter1.write(character);
+            jsonWriter1.close();
             JOptionPane.showMessageDialog(null, "The current state has been saved to file");
             mainMenu();
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
-        }
-    }
-
-    // CITATION: I used saveWorkRoom() from JsonSerializationDemo as a reference
-    // EFFECTS: saves the current points of the character to file
-    public void saveCharacter() {
-        try {
-            jsonWriter1.open();
-            jsonWriter1.write(character);
-            jsonWriter1.close();
-            mainMenu();
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE_CHARACTER);
         }
     }
 
@@ -699,7 +689,6 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
             checkPoint();
         } else if (e.getActionCommand().equals("saveButton")) {
             saveState();
-            saveCharacter();
         } else if (e.getActionCommand().equals("loadButton")) {
             character = new Character();
             loadState();

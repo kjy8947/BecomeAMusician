@@ -9,6 +9,7 @@ public class Scale {
     public static final int MAX_NOTE_NUMBERS = 12;
 
     private ArrayList<String> scale;
+    private Note note = new Note();
     private String rootNote;
 
     // EFFECTS:  constructs a Scale object w/o any parameter given
@@ -22,7 +23,6 @@ public class Scale {
     // EFFECTS:  runs the buildMajorScale method if the input letter is in uppercase
     //           runs the buildMinorScale method if the input letter is in lowercase
     public Scale(String rootNote) {
-        this.rootNote = rootNote;
         Note note = new Note();
         if (rootNote.equals(rootNote.toUpperCase())) {
             buildMajorScale(note.getNoteForMajor(rootNote));
@@ -34,7 +34,6 @@ public class Scale {
     // MODIFIES: this
     // EFFECTS:  builds a major scale by adding the next 7 notes after the root note given
     public ArrayList buildMajorScale(int root) {
-        Note note = new Note();
         scale = new ArrayList<>();
         if (0 <= root && root < MAX_NOTE_NUMBERS) {
             scale.add(note.getNoteForMajor(root));
@@ -56,7 +55,6 @@ public class Scale {
     // MODIFIES: this
     // EFFECTS:  builds a minor scale by adding the next 7 notes after the root note given
     public ArrayList buildMinorScale(int root) {
-        Note note = new Note();
         scale = new ArrayList<>();
         if (0 <= root && root < MAX_NOTE_NUMBERS) {
             scale.add(note.getNoteForMinor(root));

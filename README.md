@@ -36,3 +36,26 @@ TMI: The purpose of using the maps was: (when the inputs are String: ) to read u
 convert these to number values, which enable calculating the intervals between the notes for major/minor chords/scales; 
 (when the inputs are int: ) users will have no idea if they were given, for example, '4' instead of a note, C/c. 
 By converting the number value to its corresponding String value, users will be given an actual note name.
+
+
+## Phase 4: Task 3
+
+- Since chords and scales are very similar in their class structures (i.e. necessary methods), it would have been nice 
+to have an abstract class that both Chord and Scale classes can extend.
+- In Chord class: The only differences between buildMajorTriadChord(int root) and buildMinorTriadChord(int root) methods
+ are the method called on the Note object (i.e. note), one number used for the calculation (i.e. 4 for major chord and 3
+  for minor chord for the middle note in a chord), and some words in the else statement. It will look nice if I 
+  extracted a method out of it.
+- In Scale class: The same thing as what I wrote above could have been done for buildMajorScale(int roo) and 
+buildMinorScale(int root) methods.
+- BecomeAMusicianGUI: Just like the 2 points above, there are lots of methods that have exactly the same structure 
+in my codes, due to the way I designed the Note class (i.e. uppercase letters for notes used in the major keys and 
+lowercase letters for notes used in the minor keys). randomMajorChordQuiz() and randomMinorChordQuiz() are exactly the 
+same -- even their helper methods -- so the lines of codes between the setup of the JPanel can be extracted. The same 
+for the helper methods (i.e. randomMajor(/Minor)ChordQuizButtonClicked(jb, cb, randomNote)).
+- BecomeAMusicianGUI: A method can be extracted for the 4 helper methods in initializeComponentsForEditTheList() method.
+ The extracted method can have 2 parameters that will determine whether to add/remove a chord, as well as whether to 
+ print "major chord" or "minor chord" in its message dialog. By doing this, lots of duplications can be removed.
+- It would have been nice to create a separate class each for the quiz methods and editTheList() method in the GUI 
+class. I couldn't do this due to my lack of skills, but it's something that I'd like to try if I had more time and 
+brain power.

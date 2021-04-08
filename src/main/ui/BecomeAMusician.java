@@ -38,10 +38,10 @@ public class BecomeAMusician {
     private Chord chord;
     private Scale scale;
     private String anotherRandomNote;
-    private JsonWriter jsonWriter;
-    private JsonWriter jsonWriter1;
-    private JsonReader jsonReader;
-    private JsonReader jsonReader1;
+    private JsonWriter jsonWriter = new JsonWriter(JSON_STORE);
+    private JsonWriter jsonWriter1 = new JsonWriter(JSON_STORE_CHARACTER);
+    private JsonReader jsonReader = new JsonReader(JSON_STORE);
+    private JsonReader jsonReader1 = new JsonReader(JSON_STORE_CHARACTER);
 
     // Starts the program
     // Begins w/ the brief instructions followed by character creation
