@@ -302,7 +302,8 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Correct! You get one point.");
                 } else {
                     character.losePoint();
-                    JOptionPane.showMessageDialog(null, "Incorrect! You failed this one. You lost one point.");
+                    JOptionPane.showMessageDialog(null,
+                            "Incorrect! You failed this one. You lost one point.");
                 }
             }
         });
@@ -351,7 +352,8 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Correct! You get one point.");
                 } else {
                     character.losePoint();
-                    JOptionPane.showMessageDialog(null, "Incorrect! You failed this one. You lost one point.");
+                    JOptionPane.showMessageDialog(null,
+                            "Incorrect! You failed this one. You lost one point.");
                 }
             }
         });
@@ -431,7 +433,8 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
 
                 chordsToMemorize.addChord(chordToAdd);
                 label.setText(chordsToMemorize.getMaterialsToMemorize().toString());
-                JOptionPane.showMessageDialog(null, chordToAdd + " major chord has been added to the list");
+                JOptionPane.showMessageDialog(null, chordToAdd
+                        + " major chord has been added to the list");
             }
         });
     }
@@ -446,7 +449,8 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
                 String chordToRemove = (String) cb.getSelectedItem();
                 chordsToMemorize.removeChord(chordToRemove);
                 label.setText(chordsToMemorize.getMaterialsToMemorize().toString()); // viewing the list
-                JOptionPane.showMessageDialog(null, chordToRemove + " major chord has been removed from the list");
+                JOptionPane.showMessageDialog(null, chordToRemove
+                        + " major chord has been removed from the list");
             }
         });
     }
@@ -463,7 +467,8 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
 
                 chordsToMemorize.addChord(chordToAdd);
                 label.setText(chordsToMemorize.getMaterialsToMemorize().toString()); // viewing the list
-                JOptionPane.showMessageDialog(null, chordToAdd + " minor chord has been added to the list");
+                JOptionPane.showMessageDialog(null, chordToAdd
+                        + " minor chord has been added to the list");
             }
         });
     }
@@ -478,7 +483,8 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
                 String chordToRemove = (String) cb.getSelectedItem();
                 chordsToMemorize.removeChord(chordToRemove);
                 label.setText(chordsToMemorize.getMaterialsToMemorize().toString()); // viewing the list
-                JOptionPane.showMessageDialog(null, chordToRemove + " minor chord has been removed from the list");
+                JOptionPane.showMessageDialog(null, chordToRemove
+                        + " minor chord has been removed from the list");
             }
         });
     }
