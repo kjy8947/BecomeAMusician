@@ -717,7 +717,7 @@ public class BecomeAMusicianGUI extends JFrame implements ActionListener {
     }
 
     /*
-     * Start the program
+     * Start the program :)
      */
     public static void main(String[] args) {
         try {
